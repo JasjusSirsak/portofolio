@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holla! This is Bintang ꒰ྀི๑• ༝ •๑꒱ྀི</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Marked.js for inline Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#486C2F',
+                        rusticRed: '#8B2626',
+                        warmYellow: '#F1E5A1',
+                        vibrantOrange: '#EF6905',
+                        paperBg: '#F5F2E9',
+                        darkText: '#1C2417',
+                        windowGray: '#E3DFD2',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        pixel: ['"VT323"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'brutal': '4px 4px 0px 0px #1C2417',
+                        'brutal-lg': '6px 6px 0px 0px #1C2417',
+                        'brutal-sm': '2px 2px 0px 0px #1C2417',
+                        'brutal-red': '4px 4px 0px 0px #8B2626',
+                        'brutal-green': '4px 4px 0px 0px #486C2F',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F5F2E9;
+            background-image: 
+                linear-gradient(to right, rgba(72, 108, 47, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(72, 108, 47, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #1C2417;
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 22s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Notebook Tape Effect */
+        .washi-tape {
+            background: rgba(241, 229, 161, 0.85);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            position: relative;
+        }
+        .washi-tape::before, .washi-tape::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background-size: 8px 8px;
+        }
+        .washi-tape::before { left: -5px; background-image: radial-gradient(circle, transparent 3px, rgba(241, 229, 161, 0.85) 3px); }
+        .washi-tape::after { right: -5px; background-image: radial-gradient(circle, transparent 3px, rgba(241, 229, 161, 0.85) 3px); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E3DFD2;
+            border-left: 2px solid #1C2417;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #486C2F;
+            border: 2px solid #1C2417;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B2626;
+        }
+
+        /* Scanline Overlay for Retro Windows Modal */
+        .retro-scanline {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.03) 50%
+            );
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-warmYellow selection:text-rusticRed">
+
+    <!-- TOP RETRO BAR / HEADER -->
+    <header class="sticky top-0 z-40 bg-paperBg/90 backdrop-blur-md border-b-2 border-darkText px-4 py-2.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo & Retro Icon -->
+            <a href="#" class="flex items-center gap-2 group">
+                 <!-- this is the icooooon -->
+<div class="w-8 h-8 bg-forest text-warmYellow font-pixel font-bold text-xl flex items-center justify-center border-2 border-darkText shadow-brutal-sm group-hover:bg-rusticRed transition-colors">                    <i class="fa-solid fa-tree text-sm"></i>
+                </div>
+                <span class="font-heading font-bold text-xl tracking-tight text-darkText flex items-center gap-1">
+                    PORTFOLIO<span class="text-rusticRed">✮ ⋆Star</span>
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-1 font-heading text-sm font-bold">
+                <a href="#about" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Tentang</a>
+                <a href="#projects" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Proyek</a>
+                <a href="#experience" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Pengalaman</a>
+                <a href="#markdown-notes" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Catatan.md</a>
+                <a href="#contact" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Kontak</a>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="flex items-center gap-2">
+                <!-- Ambient Audio Synthesizer Button -->
+                <button id="forestAudioBtn" onclick="toggleForestAudio()" title="Suara Sejuk Hutan (Web Audio)" class="px-3 py-1 bg-warmYellow border-2 border-darkText shadow-brutal-sm hover:translate-y-0.5 hover:shadow-none text-xs font-heading font-bold flex items-center gap-1.5 rounded-full transition-all">
+                    <i class="fa-solid fa-volume-xmark text-rusticRed" id="audioIcon"></i>
+                    <span id="audioText" class="hidden sm:inline">Suara Hutan</span>
+                </button>
+
+                <!-- Open Retro Window Button -->
+                <button onclick="openSystemModal()" class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText shadow-brutal-sm hover:bg-rusticRed text-xs font-heading font-bold flex items-center gap-1 rounded-full transition-all">
+                    <i class="fa-solid fa-window-maximize"></i>
+                    <span>SYS_INFO</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 bg-paperBg border-2 border-darkText shadow-brutal-sm active:translate-y-0.5">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden mt-3 pt-3 border-t-2 border-darkText flex flex-col gap-2 font-heading font-bold">
+            <a href="#about" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Tentang</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Proyek</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Pengalaman</a>
+            <a href="#markdown-notes" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Catatan (.md)</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Kontak</a>
+        </div>
+    </header>
+
+    <!-- TICKER / MARQUEE BANNER -->
+    <div class="bg-forest text-warmYellow border-b-2 border-darkText py-1.5 overflow-hidden font-pixel text-lg tracking-wider select-none">
+        <div class="animate-marquee whitespace-nowrap flex items-center gap-8">
+            <span><i class="fa-solid fa-leaf"></i> SELAMAT DATANG...</span>
+            <span><i class="fa-solid fa-bolt"></i> AVAILABLE FOR...</span>
+            <span><i class="fa-solid fa-code"></i> HTML • CSS •...</span>
+            <span><i class="fa-solid fa-palette"></i> DESIGN SYSTEM...</span>
+            <!-- Repeat for seamless loop -->
+            <span><i class="fa-solid fa-leaf"></i> SELAMAT DATANG...</span>
+            <span><i class="fa-solid fa-bolt"></i> AVAILABLE FOR...</span>
+            <span><i class="fa-solid fa-code"></i> HTML • CSS •...</span>
+            <span><i class="fa-solid fa-palette"></i> DESIGN SYSTEM...</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16">
+
+        <!-- SECTION 1: HERO & ABOUT (Inspired by Image 1 Header & Image 2 Notebook Window) -->
+        <section id="about" class="pt-2">
+            <!-- Window Frame Container -->
+            <div class="bg-windowGray border-2 border-darkText shadow-brutal-lg rounded-t-lg overflow-hidden relative">
+                <!-- Retro Window Header -->
+                <div class="bg-forest text-warmYellow px-3 py-2 border-b-2 border-darkText flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-tree text-sm"></i>
+                        <span class="font-pixel text-xl tracking-wider uppercase font-bold">C:\USERS\DEVELOPER\PROFILE.EXE</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button class="w-5 h-5 p-2 -m-1.5 bg-warmYellow text-darkText border border-darkText flex items-center justify-center font-bold text-xs hover:bg-white">-</button>
+                        <button class="w-5 h-5 p-2 -m-1.5 bg-warmYellow text-darkText border border-darkText flex items-center justify-center font-bold text-xs hover:bg-white">□</button>
+                        <button onclick="alert('Window System Active')" class="w-5 h-5 p-2 -m-1.5 bg-rusticRed text-white border border-darkText flex items-center justify-center font-bold text-xs hover:bg-red-700">×</button>
+                    </div>
+                </div>
+
+                <!-- Window Inner Body -->
+                <div class="p-6 md:p-10 bg-paperBg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
+                    
+                    <!-- Washi Tape Accent -->
+                    <div class="washi-tape absolute -top-3 left-12 px-6 py-1 font-pixel text-darkText text-sm font-bold rotate-[-2deg] z-10 hidden sm:block">
+                        READ_ME.TXT
+                    </div>
+
+                    <!-- Left: Avatar / Visual Graphic -->
+                    <div class="lg:col-span-5 flex flex-col items-center order-2 lg:order-1">
+                        <div class="relative w-full max-w-sm">
+                            <!-- Background Accent Card -->
+                            <div class="absolute inset-0 bg-rusticRed border-2 border-darkText translate-x-3 translate-y-3 rounded-lg"></div>
+                            
+                            <!-- Main Photo Card -->
+                            <div class="relative bg-white border-2 border-darkText p-3 rounded-lg">
+                                <div class="bg-forest/10 border border-darkText/20 rounded p-2 text-center mb-3">
+                                 <span class="font-pixel text-xl text-forest font-bold">Bintang Callista Virjianto.ID</span>
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Developer Portrait" 
+                                     class="w-full h-64 sm:h-72 object-cover border-2 border-darkText rounded filter grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
+                                     onerror="this.src='https://placehold.co/600x600/486C2F/F1E5A1?text=Developer+Avatar'">
+                                
+                                <div class="mt-3 pt-2 border-t-2 border-dashed border-darkText flex justify-between items-center text-xs font-heading font-bold">
+                                    <span class="bg-vibrantOrange text-white px-2 py-0.5 rounded border border-darkText">JUNIOR FULLSTACK BUILDER</span>
+                                    <span class="text-rusticRed"><i class="fa-solid fa-location-dot"></i> INDONESIA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Bio & Key Details -->
+                    <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                        <div class="inline-block bg-warmYellow border-2 border-darkText px-3 py-1 rounded-full shadow-brutal-sm font-heading text-xs font-bold text-rusticRed">
+                            <i class="fa-solid fa-seedling"></i> CREATIVE DEVELOPER & DESIGNER
+                        </div>
+
+                        <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-darkText leading-none">
+                            Turning Lines of Code into <span class="text-forest underline decoration-vibrantOrange decoration-wavy decoration-2">Meaningful</span> Experiences.
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-darkText/90 font-medium leading-relaxed">
+                            Halo! Saya seorang pengembang web dan spesialis operasional teknis yang fokus pada <strong class="text-rusticRed">kerapian antarmuka (UI Layout)</strong>, serta efisiensi <strong class="text-forest">pengolahan data</strong>. Terbiasa membangun situs yang cepat, responsif, dan mudah diakses, sekaligus mengelola dokumen teknis seperti rekapitulasi data dan administrasi digital secara terstruktur.
+                        </p>
+
+                        <!-- Tech Badges -->
+                        <div class="space-y-2">
+                            <span class="font-pixel text-lg text-darkText font-bold uppercase block">SKILL MATRIX:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">HTML5 & CSS3</span>
+                                <span class="px-3 py-1 bg-rusticRed text-white border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">JavaScript</span>
+                                <span class="px-3 py-1 bg-vibrantOrange text-white border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">React (Static Build)</span>
+                                <span class="px-3 py-1 bg-warmYellow text-darkText border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">Python</span>
+                                <span class="px-3 py-1 bg-white text-darkText border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">PostgreSQL (Database)</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-4 flex flex-wrap gap-4 items-center">
+                            <a href="#projects" class="px-6 py-3 bg-forest text-warmYellow font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-rusticRed hover:text-white hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
+                                <span>Lihat Portofolio</span>
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </a>
+                            <a href="#contact" class="px-6 py-3 bg-warmYellow text-darkText font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-vibrantOrange hover:text-white hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
+                                <span>Hubungi Saya</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </a>
+                           <a href="cv.html" class="px-6 py-3 bg-rusticRed text-white font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-forest hover:text-warmYellow hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
+                                <span>Curriculum Vitae</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PROJECTS SHOWCASE (Numbered Cards Inspired by Flying Phoenix Image 1 & PLM Image 2) -->
+        <section id="projects" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-darkText pb-4">
+                <div>
+                    <div class="flex items-center gap-2 text-rusticRed font-pixel text-xl font-bold">
+                        <span>[ SECTION // 02 ]</span>
+                    </div>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-bold text-darkText">
+                        Proyek Unggulan <span class="text-forest">/ Case Studies</span>
+                    </h2>
+                </div>
+                <p class="text-sm font-medium text-darkText/80 max-w-md">
+                    Koleksi proyek pilihan dengan implementasi JavaScript modern, React static site, serta layout responsif.
+                </p>
+            </div>
+
+            <!-- Numbered Project Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Project Card 01 -->
+                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
+                        01
+                    </div>
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 bg-forest/10 text-forest border border-forest font-heading text-xs font-bold rounded-full mb-3">
+                            WEB APP
+                        </span>
+                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
+                            Forest Soundscape Engine
+                        </h3>
+                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
+                            Generator audio sejuknya alam menggunakan Web Audio API tanpa file media eksternal berat.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-3 border-t border-darkText/20">
+                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">JS ES6</span>
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">WEB AUDIO</span>
+                        </div>
+                        <button onclick="showProjectDetails('Forest Soundscape Engine', 'Aplikasi generator suara alami menggunakan sinyal gelombang Web Audio API JavaScript untuk menciptakan simulasi deru angin dan dedaunan hutan.', 'HTML5, Pure JS, Tailwind CSS')" 
+                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
+                            <span>Buka Preview</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 02 -->
+                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
+                        02
+                    </div>
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 bg-rusticRed/10 text-rusticRed border border-rusticRed font-heading text-xs font-bold rounded-full mb-3">
+                            STATIC REACT
+                        </span>
+                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
+                            Retro OS Dashboard
+                        </h3>
+                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
+                            Sistem antarmuka gaya Windows 95 yang dibangun dengan React lalu di-build statis untuk GitHub Pages.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-3 border-t border-darkText/20">
+                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">REACT</span>
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">STATIC BUILD</span>
+                        </div>
+                        <button onclick="showProjectDetails('Retro OS Dashboard', 'Sistem dashboard manajemen tugas dengan tema retro OS. Dikembangkan dengan React JSX dan dikompilasi menjadi aset statis JavaScript agar kompatibel penuh dengan hosting GitHub Pages.', 'React.js, Tailwind, GitHub Actions')" 
+                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
+                            <span>Buka Preview</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 03 -->
+                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
+                        03
+                    </div>
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 bg-vibrantOrange/10 text-vibrantOrange border border-vibrantOrange font-heading text-xs font-bold rounded-full mb-3">
+                            MARKDOWN CMS
+                        </span>
+                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
+                            Notebook Journal MD
+                        </h3>
+                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
+                            Platform jurnal pribadi berbasis Markdown dengan pembaca berkas statis otomatis.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-3 border-t border-darkText/20">
+                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">MARKDOWN</span>
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">MARKED.JS</span>
+                        </div>
+                        <button onclick="showProjectDetails('Notebook Journal MD', 'Sistem pembaca blog ringan berbasis file .md statis. Memungkinkan penulis menambahkan tulisan tanpa database rumit.', 'JavaScript, Marked.js, Brutalism CSS')" 
+                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
+                            <span>Buka Preview</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 04 -->
+                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
+                        04
+                    </div>
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 bg-forest/10 text-forest border border-forest font-heading text-xs font-bold rounded-full mb-3">
+                            PORTFOLIO
+                        </span>
+                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
+                            Forest Brutalism Theme
+                        </h3>
+                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
+                            Desain portofolio unik yang menggabungkan estetika kaset retro, windows 9x, dan elemen hutan.
+                        </p>
+                    </div>
+                    <div class="space-y-3 pt-3 border-t border-darkText/20">
+                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">HTML5</span>
+                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">TAILWIND</span>
+                        </div>
+                        <button onclick="showProjectDetails('Forest Brutalism Theme', 'Situs portofolio berkinerja tinggi dengan skor Lighthouse 100%. Bebas kerangka kerja berat.', 'HTML5, CSS3, JavaScript')" 
+                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
+                            <span>Buka Preview</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENCE / SCHEDULE MATRIX (Inspired by Schedule Grid in Image 1) -->
+        <section id="experience" class="space-y-6">
+            <div class="bg-windowGray border-2 border-darkText rounded-xl p-6 shadow-brutal-lg space-y-6">
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-darkText pb-4">
+                    <div>
+                        <span class="font-pixel text-xl text-rusticRed font-bold">[ MATRIX // TIMELINE ]</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-darkText">
+                            Jadwal & Pengalaman Kerja
+                        </h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 bg-warmYellow border border-darkText rounded-full font-heading text-xs font-bold text-forest">
+                            <i class="fa-solid fa-calendar-days"></i> Periode 2023 - 2026
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Matrix Schedule Table (Inspired by Flying Phoenix Image 1) -->
+                <!-- Card Layout: Muncul di Mobile & Tablet, Hidden di Desktop -->
+<div class="lg:hidden space-y-4">
+    <!-- Card 1 -->
+    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
+        <div class="flex justify-between items-start gap-2">
+            <span class="font-pixel text-lg font-bold text-rusticRed leading-none">2025 — SEKARANG</span>
+            <span class="shrink-0 px-2 py-0.5 bg-forest text-warmYellow text-[10px] font-heading font-bold rounded border border-darkText">AKTIF</span>
+        </div>
+        <h3 class="font-heading text-base font-bold text-darkText">Senior Web Developer</h3>
+        <p class="text-xs font-bold text-forest">Forest Tech Studio</p>
+        <p class="text-sm text-darkText/80 leading-relaxed">Membangun arsitektur React static site, optimasi performa web & animasi CSS.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
+        <div class="flex justify-between items-start gap-2">
+            <span class="font-pixel text-lg font-bold text-forest leading-none">2024 — 2025</span>
+            <span class="shrink-0 px-2 py-0.5 bg-warmYellow text-darkText text-[10px] font-heading font-bold rounded border border-darkText">SELESAI</span>
+        </div>
+        <h3 class="font-heading text-base font-bold text-darkText">Frontend Specialist</h3>
+        <p class="text-xs font-bold text-forest">Creative Digital Co.</p>
+        <p class="text-sm text-darkText/80 leading-relaxed">Pengembangan komponen UI bertema brutalism, integrasi Markdown CMS statis.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
+        <div class="flex justify-between items-start gap-2">
+            <span class="font-pixel text-lg font-bold text-vibrantOrange leading-none">2023 — 2024</span>
+            <span class="shrink-0 px-2 py-0.5 bg-windowGray text-darkText text-[10px] font-heading font-bold rounded border border-darkText">SELESAI</span>
+        </div>
+        <h3 class="font-heading text-base font-bold text-darkText">UI/UX & Web Designer</h3>
+        <p class="text-xs font-bold text-forest">Freelance / Independent</p>
+        <p class="text-sm text-darkText/80 leading-relaxed">Desain sistem warna kustom, pembuatan Wireframe & prototipe interaktif.</p>
+    </div>
+</div>
+
+<!-- Table Layout: Hidden di Mobile, Muncul di Desktop -->
+<div class="hidden lg:block overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-forest text-warmYellow border-2 border-darkText font-heading text-sm font-bold">
+                <th class="p-3 border-r-2 border-darkText">Tahun / Periode</th>
+                <th class="p-3 border-r-2 border-darkText">Peran / Posisi</th>
+                <th class="p-3 border-r-2 border-darkText">Organisasi / Klien</th>
+                <th class="p-3">Fokus & Keterampilan Utama</th>
+            </tr>
+        </thead>
+        <tbody class="font-heading text-sm font-semibold divide-y-2 divide-darkText border-2 border-darkText bg-white">
+            <tr class="hover:bg-warmYellow/40 transition-colors">
+                <td class="p-3 border-r-2 border-darkText font-bold text-rusticRed">2025 - SEKARANG</td>
+                <td class="p-3 border-r-2 border-darkText font-bold">Senior Web Developer</td>
+                <td class="p-3 border-r-2 border-darkText">Forest Tech Studio</td>
+                <td class="p-3">Membangun arsitektur React static site, optimasi performa web & animasi CSS.</td>
+            </tr>
+            <tr class="hover:bg-warmYellow/40 transition-colors bg-paperBg/50">
+                <td class="p-3 border-r-2 border-darkText font-bold text-forest">2024 - 2025</td>
+                <td class="p-3 border-r-2 border-darkText font-bold">Frontend Specialist</td>
+                <td class="p-3 border-r-2 border-darkText">Creative Digital Co.</td>
+                <td class="p-3">Pengembangan komponen UI bertema brutalism, integrasi Markdown CMS statis.</td>
+            </tr>
+            <tr class="hover:bg-warmYellow/40 transition-colors">
+                <td class="p-3 border-r-2 border-darkText font-bold text-vibrantOrange">2023 - 2024</td>
+                <td class="p-3 border-r-2 border-darkText font-bold">UI/UX & Web Designer</td>
+                <td class="p-3 border-r-2 border-darkText">Freelance / Independent</td>
+                <td class="p-3">Desain sistem warna kustom, pembuatan Wireframe & prototipe interaktif.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: MARKDOWN (.MD) READER SIMULATION -->
+        <section id="markdown-notes" class="space-y-6">
+            <div class="bg-white border-2 border-darkText rounded-xl p-6 shadow-brutal space-y-6">
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-darkText pb-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-file-code text-rusticRed text-xl"></i>
+                            <span class="font-pixel text-xl text-rusticRed font-bold">MARKDOWN_VIEWER.EXE</span>
+                        </div>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-darkText">
+                            Catatan & Dokumentasi Teknis (.md)
+                        </h2>
+                    </div>
+                    <!-- Select Article Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="loadMarkdownDoc('readme')" id="btn-readme" class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText rounded-md font-heading text-xs font-bold shadow-brutal-sm">
+                            README.md
+                        </button>
+                        <button onclick="loadMarkdownDoc('react-static')" id="btn-react-static" class="px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow">
+                            react_build.md
+                        </button>
+                        <button onclick="loadMarkdownDoc('forest-philosophy')" id="btn-forest-philosophy" class="px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow">
+                            filosofi_hutan.md
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Markdown Content Render Box -->
+                <div class="bg-paperBg border-2 border-darkText p-5 sm:p-8 rounded-lg relative overflow-hidden">
+                    <div class="absolute top-2 right-3 font-pixel text-xs text-darkText/60">
+                        PARSED WITH MARKED.JS
+                    </div>
+                    
+                    <div id="markdownOutput" class="prose max-w-none font-sans text-darkText leading-relaxed space-y-4">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 5: CONTACT & FOOTER (Inspired by Flying Phoenix Dark Footer Image 1) -->
+        <section id="contact">
+            <div class="bg-darkText text-paperBg border-2 border-darkText rounded-2xl p-6 sm:p-10 shadow-brutal-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-rusticRed text-warmYellow font-pixel text-lg rounded border border-warmYellow/30">
+                        <span>● GET_IN_TOUCH.SH</span>
+                    </div>
+
+                    <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-warmYellow leading-tight">
+                        Mari Berkolaborasi atau Sekadar Menyapa <i class="fa-solid fa-leaf"></i>
+                    </h2>
+
+                    <p class="text-paperBg/80 text-sm sm:text-base font-medium">
+                        Apakah kamu membutuhkan situs portofolio, aplikasi web React yang siap dideploy secara statis ke GitHub Pages, atau desain brutalism unik? Kirimkan pesan sekarang!
+                    </p>
+
+                    <!-- Contact Details List -->
+                    <div class="space-y-3 font-heading text-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-forest text-warmYellow rounded flex items-center justify-center border border-paperBg/20">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span>email.kamu@example.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-rusticRed text-warmYellow rounded flex items-center justify-center border border-paperBg/20">
+                                <i class="fa-brands fa-github"></i>
+                            </div>
+                            <span>github.com/username-kamu</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-vibrantOrange text-paperBg rounded flex items-center justify-center border border-paperBg/20">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </div>
+                            <span>linkedin.com/in/username-kamu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Form Card -->
+                <div class="lg:col-span-5 order-1 lg:order-2">
+                    <form onsubmit="handleFormSubmit(event)" class="bg-paperBg text-darkText border-2 border-darkText p-6 rounded-xl shadow-brutal space-y-4">
+                        <h3 class="font-heading text-xl font-bold border-b-2 border-darkText pb-2 flex items-center justify-between">
+                            <span>Kirim Pesan</span>
+                            <i class="fa-solid fa-paper-plane text-rusticRed"></i>
+                        </h3>
+
+                        <div>
+                            <label class="block font-heading text-xs font-bold uppercase mb-1">Nama Lengkap</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block font-heading text-xs font-bold uppercase mb-1">Alamat Email</label>
+                            <input type="email" required placeholder="nama@domain.com" class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block font-heading text-xs font-bold uppercase mb-1">Pesan / Proyek</label>
+                            <textarea rows="3" required placeholder="Tuliskan ide proyekmu di sini..." class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-forest text-warmYellow border-2 border-darkText rounded font-heading font-bold hover:bg-rusticRed hover:text-white transition-all shadow-brutal-sm active:translate-y-0.5 active:shadow-none">
+                            Kirimkan Sekarang
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER CREDITS -->
+    <footer class="bg-paperBg border-t-2 border-darkText py-6 mt-16 text-center font-heading text-xs text-darkText font-bold">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-forest rounded-full inline-block border border-darkText"></span>
+                <span>© 2026 RETRO FOREST PORTFOLIO. DIBUAT DENGAN PASION & HARMONI ALAM.</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#about" class="hover:underline text-rusticRed">Kembali ke Atas ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- RETRO OS MODAL DIALOG (PROJECT PREVIEW / SYSTEM INFO) -->
+    <div id="retroModal" class="fixed inset-0 bg-darkText/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-windowGray border-2 border-darkText w-full max-w-lg rounded-t-lg shadow-brutal-lg overflow-hidden animate-in fade-in zoom-in duration-200">
+            <!-- Modal Window Titlebar -->
+            <div class="bg-rusticRed text-warmYellow px-3 py-1.5 border-b-2 border-darkText flex items-center justify-between select-none">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open text-xs"></i>
+                    <span id="modalTitle" class="font-pixel text-lg font-bold">SYSTEM_PREVIEW.EXE</span>
+                </div>
+                <button onclick="closeModal()" class="w-5 h-5 bg-warmYellow text-darkText border border-darkText font-bold text-xs flex items-center justify-center hover:bg-white">×</button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 bg-paperBg space-y-4">
+                <div id="modalBody" class="text-sm font-medium text-darkText leading-relaxed space-y-2">
+                    <!-- Dynamic details inserted here -->
+                </div>
+
+                <div class="pt-4 border-t-2 border-darkText flex justify-end">
+                    <button onclick="closeModal()" class="px-5 py-1.5 bg-forest text-warmYellow border-2 border-darkText font-heading font-bold text-xs rounded hover:bg-rusticRed hover:text-white transition-colors shadow-brutal-sm">
+                        Tutup Jendela [OK]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           1. MARKDOWN DOCUMENTS DATA & RENDER ENGINE
+           ========================================================= */
+        const markdownDocs = {
+            'readme': `
+# 🌲 Portofolio Retro Forest Notebook OS
+
+Selamat datang di repositori portofolio ini! Situs ini dirancang khusus dengan menggabungkan **3 elemen estetika utama**:
+
+1. **Retro Windows OS**: Elemen title bar, control window, tombol aksi brutalist.
+2. **Notebook / Neo-Brutalism**: Grid kertas koran, pita (*washi tape*), batas garis tebal (\`2px border\`), dan bayangan keras (\`shadow-brutal\`).
+3. **Nuansa Sejuk Hutan**: Kombinasi warna Hijau Hutan (\`#486C2F\`), Merah Karat (\`#8B2626\`), Kuning Hangat (\`#F1E5A1\`), dan Oranye Terakota (\`#EF6905\`).
+
+### ⚡ Fitur Utama:
+- **100% Statis & Responsif**: Ringan dan cepat diakses melalui Mobile maupun Desktop.
+- **Dukungan Build React Statis**: Komponen React yang dispesifikasi dapat dikompilasi menjadi JavaScript murni untuk hosting gratis di GitHub Pages.
+- **Audio Sintesis Alami**: Generator suara angin & hujan tipis menggunakan Web Audio API murni.
+            `,
+            'react-static': `
+# 📦 Panduan React Static Build untuk GitHub Pages
+
+Guna memastikan GitHub Pages dapat menerjemahkan aplikasi React milikmu, proyek harus **di-build menjadi JavaScript & HTML statis**.
+
+### Langkah-Langkah Build:
+1. Pastikan skrip build di \`package.json\` terkonfigurasi:
+\`\`\`json
+"scripts": {
+  "build": "vite build" // atau "react-scripts build"
+}
+\`\`\`
+2. Jalankan perintah kompilasi:
+\`\`\`bash
+npm run build
+\`\`\`
+3. Folder hasil kompilasi (misal: \`dist/\` atau \`build/\`) inilah yang dipublish ke cabang \`gh-pages\`.
+            `,
+            'forest-philosophy': `
+# 🍃 Filosofi Warna & Estetika Hutan
+
+Kode warna yang dipilih dalam portofolio ini memiliki arti mendalam:
+
+- **#486C2F (Forest Green)**: Melambangkan ketenangan, struktur kode yang sehat, dan daya tahan.
+- **#8B2626 (Rustic Red)**: Menandakan aksen tegas, fokus, dan energi kreatif brutalism.
+- **#F1E5A1 (Warm Sunlight Yellow)**: Kontras lembut bagaikan sinar matahari yang menembus dedaunan hutan.
+- **#EF6905 (Terracotta Orange)**: Kehangatan tanah dan semangat inovasi.
+            `
+        };
+
+        function loadMarkdownDoc(docKey) {
+            const content = markdownDocs[docKey] || '# Dokumentasi tidak ditemukan';
+            document.getElementById('markdownOutput').innerHTML = marked.parse(content);
+
+            // Update button styles
+            ['readme', 'react-static', 'forest-philosophy'].forEach(key => {
+                const btn = document.getElementById(`btn-${key}`);
+                if(key === docKey) {
+                    btn.className = "px-3 py-1 bg-forest text-warmYellow border-2 border-darkText rounded-md font-heading text-xs font-bold shadow-brutal-sm";
+                } else {
+                    btn.className = "px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow";
+                }
+            });
+        }
+
+        /* =========================================================
+           2. RETRO MODAL CONTROLLER
+           ========================================================= */
+        function showProjectDetails(title, description, tech) {
+            document.getElementById('modalTitle').innerText = title.toUpperCase() + '.EXE';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="bg-warmYellow/40 p-3 border border-darkText rounded mb-3">
+                    <span class="font-bold text-rusticRed font-heading text-xs uppercase block">DESKRIPSI PROYEK:</span>
+                    <p class="text-sm mt-1">${description}</p>
+                </div>
+                <div>
+                    <span class="font-bold text-forest font-heading text-xs uppercase block">TEKNOLOGI DIGUNAKAN:</span>
+                    <p class="text-xs font-pixel text-base font-bold text-darkText mt-1">${tech}</p>
+                </div>
+            `;
+            document.getElementById('retroModal').classList.remove('hidden');
+            document.getElementById('retroModal').classList.add('flex');
+        }
+
+        function openSystemModal() {
+            document.getElementById('modalTitle').innerText = 'SYSTEM_DIAGNOSTICS.LOG';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="space-y-2 font-heading text-xs">
+                    <div class="flex justify-between border-b border-darkText/20 pb-1">
+                        <span>STATUS OPERASIONAL:</span>
+                        <span class="font-bold text-forest">NORMAL (100%)</span>
+                    </div>
+                    <div class="flex justify-between border-b border-darkText/20 pb-1">
+                        <span>TEKNOLOGI DUKUNGAN:</span>
+                        <span class="font-bold">HTML5, CSS3, JS ES6, REACT (STATIC)</span>
+                    </div>
+                    <div class="flex justify-between border-b border-darkText/20 pb-1">
+                        <span>PENGATURAN WARNA:</span>
+                        <span class="font-bold text-rusticRed">#486C2F & #8B2626</span>
+                    </div>
+                    <p class="pt-2 text-darkText/80">
+                        Website portofolio ini siap di-host langsung di GitHub Pages secara gratis tanpa membutuhkan server backend tambahan.
+                    </p>
+                </div>
+            `;
+            document.getElementById('retroModal').classList.remove('hidden');
+            document.getElementById('retroModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('retroModal').classList.add('hidden');
+            document.getElementById('retroModal').classList.remove('flex');
+        }
+
+        /* =========================================================
+           3. WEB AUDIO SYNTHESIZER FOR AMBIENT FOREST SOUNDS
+           ========================================================= */
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let noiseNode = null;
+        let filterNode = null;
+
+        function toggleForestAudio() {
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioText');
+
+            if (!isAudioPlaying) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Create ambient pink noise (soft wind in forest)
+                    const bufferSize = audioCtx.sampleRate * 2;
+                    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+                    for (let i = 0; i < bufferSize; i++) {
+                        const white = Math.random() * 2 - 1;
+                        b0 = 0.99886 * b0 + white * 0.0555179;
+                        b1 = 0.99332 * b1 + white * 0.0750759;
+                        b2 = 0.96900 * b2 + white * 0.1538520;
+                        b3 = 0.86650 * b3 + white * 0.3104856;
+                        b4 = 0.55000 * b4 + white * 0.5329522;
+                        b5 = -0.7616 * b5 - white * 0.0168980;
+                        output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                        output[i] *= 0.03; // Low volume
+                        b6 = white * 0.115926;
+                    }
+
+                    noiseNode = audioCtx.createBufferSource();
+                    noiseNode.buffer = noiseBuffer;
+                    noiseNode.loop = true;
+
+                    // Lowpass filter for smooth leaf rustle sound
+                    filterNode = audioCtx.createBiquadFilter();
+                    filterNode.type = 'lowpass';
+                    filterNode.frequency.setValueAtTime(400, audioCtx.currentTime);
+
+                    noiseNode.connect(filterNode);
+                    filterNode.connect(audioCtx.destination);
+                    noiseNode.start();
+
+                    isAudioPlaying = true;
+                    icon.className = "fa-solid fa-volume-high text-forest";
+                    text.innerText = "Suara Aktif";
+                } catch (e) {
+                    console.log("Audio not supported or blocked by browser", e);
+                }
+            } else {
+                if (noiseNode) {
+                    noiseNode.stop();
+                    noiseNode.disconnect();
+                }
+                if (audioCtx) {
+                    audioCtx.close();
+                }
+                isAudioPlaying = false;
+                icon.className = "fa-solid fa-volume-xmark text-rusticRed";
+                text.innerText = "Suara Hutan";
+            }
+        }
+
+        /* =========================================================
+           4. MOBILE MENU & UTILS
+           ========================================================= */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert('Pesan berhasil dikirim! Terima kasih telah menghubungi.');
+            e.target.reset();
+        }
+
+        // Initialize default Markdown document on load
+        window.onload = function() {
+            loadMarkdownDoc('readme');
+        }
+    </script>
+</body>
+</html>
