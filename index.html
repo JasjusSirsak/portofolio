@@ -1,879 +1,715 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holla! This is Bintang ꒰ྀི๑• ༝ •๑꒱ྀི</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&family=VT323&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Marked.js for inline Markdown parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        forest: '#486C2F',
-                        rusticRed: '#8B2626',
-                        warmYellow: '#F1E5A1',
-                        vibrantOrange: '#EF6905',
-                        paperBg: '#F5F2E9',
-                        darkText: '#1C2417',
-                        windowGray: '#E3DFD2',
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        heading: ['"Space Grotesk"', 'sans-serif'],
-                        pixel: ['"VT323"', 'monospace'],
-                    },
-                    boxShadow: {
-                        'brutal': '4px 4px 0px 0px #1C2417',
-                        'brutal-lg': '6px 6px 0px 0px #1C2417',
-                        'brutal-sm': '2px 2px 0px 0px #1C2417',
-                        'brutal-red': '4px 4px 0px 0px #8B2626',
-                        'brutal-green': '4px 4px 0px 0px #486C2F',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: #F5F2E9;
-            background-image: 
-                linear-gradient(to right, rgba(72, 108, 47, 0.08) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(72, 108, 47, 0.08) 1px, transparent 1px);
-            background-size: 24px 24px;
-            color: #1C2417;
-        }
-
-        /* Marquee Animation */
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            display: flex;
-            width: 200%;
-            animation: marquee 22s linear infinite;
-        }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-
-        /* Notebook Tape Effect */
-        .washi-tape {
-            background: rgba(241, 229, 161, 0.85);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            backdrop-filter: blur(2px);
-            position: relative;
-        }
-        .washi-tape::before, .washi-tape::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background-size: 8px 8px;
-        }
-        .washi-tape::before { left: -5px; background-image: radial-gradient(circle, transparent 3px, rgba(241, 229, 161, 0.85) 3px); }
-        .washi-tape::after { right: -5px; background-image: radial-gradient(circle, transparent 3px, rgba(241, 229, 161, 0.85) 3px); }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #E3DFD2;
-            border-left: 2px solid #1C2417;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #486C2F;
-            border: 2px solid #1C2417;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8B2626;
-        }
-
-        /* Scanline Overlay for Retro Windows Modal */
-        .retro-scanline {
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.03) 50%
-            );
-            background-size: 100% 4px;
-        }
-    </style>
-</head>
-<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-warmYellow selection:text-rusticRed">
-
-    <!-- TOP RETRO BAR / HEADER -->
-    <header class="sticky top-0 z-40 bg-paperBg/90 backdrop-blur-md border-b-2 border-darkText px-4 py-2.5">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Brand Logo & Retro Icon -->
-            <a href="#" class="flex items-center gap-2 group">
-                 <!-- this is the icooooon -->
-<div class="w-8 h-8 bg-forest text-warmYellow font-pixel font-bold text-xl flex items-center justify-center border-2 border-darkText shadow-brutal-sm group-hover:bg-rusticRed transition-colors">                    <i class="fa-solid fa-tree text-sm"></i>
-                </div>
-                <span class="font-heading font-bold text-xl tracking-tight text-darkText flex items-center gap-1">
-                    PORTFOLIO<span class="text-rusticRed">✮ ⋆Star</span>
-                </span>
-            </a>
-
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-1 font-heading text-sm font-bold">
-                <a href="#about" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Tentang</a>
-                <a href="#projects" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Proyek</a>
-                <a href="#experience" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Pengalaman</a>
-                <a href="#markdown-notes" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Catatan.md</a>
-                <a href="#contact" class="px-3 py-1.5 hover:bg-warmYellow border-2 border-transparent hover:border-darkText rounded-full transition-all">Kontak</a>
-            </nav>
-
-            <!-- Actions Right -->
-            <div class="flex items-center gap-2">
-                <!-- Ambient Audio Synthesizer Button -->
-                <button id="forestAudioBtn" onclick="toggleForestAudio()" title="Suara Sejuk Hutan (Web Audio)" class="px-3 py-1 bg-warmYellow border-2 border-darkText shadow-brutal-sm hover:translate-y-0.5 hover:shadow-none text-xs font-heading font-bold flex items-center gap-1.5 rounded-full transition-all">
-                    <i class="fa-solid fa-volume-xmark text-rusticRed" id="audioIcon"></i>
-                    <span id="audioText" class="hidden sm:inline">Suara Hutan</span>
-                </button>
-
-                <!-- Open Retro Window Button -->
-                <button onclick="openSystemModal()" class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText shadow-brutal-sm hover:bg-rusticRed text-xs font-heading font-bold flex items-center gap-1 rounded-full transition-all">
-                    <i class="fa-solid fa-window-maximize"></i>
-                    <span>SYS_INFO</span>
-                </button>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 bg-paperBg border-2 border-darkText shadow-brutal-sm active:translate-y-0.5">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Nav Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden mt-3 pt-3 border-t-2 border-darkText flex flex-col gap-2 font-heading font-bold">
-            <a href="#about" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Tentang</a>
-            <a href="#projects" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Proyek</a>
-            <a href="#experience" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Pengalaman</a>
-            <a href="#markdown-notes" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Catatan (.md)</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="p-2 hover:bg-warmYellow border border-darkText rounded-md">Kontak</a>
-        </div>
-    </header>
-
-    <!-- TICKER / MARQUEE BANNER -->
-    <div class="bg-forest text-warmYellow border-b-2 border-darkText py-1.5 overflow-hidden font-pixel text-lg tracking-wider select-none">
-        <div class="animate-marquee whitespace-nowrap flex items-center gap-8">
-            <span><i class="fa-solid fa-leaf"></i> SELAMAT DATANG...</span>
-            <span><i class="fa-solid fa-bolt"></i> AVAILABLE FOR...</span>
-            <span><i class="fa-solid fa-code"></i> HTML • CSS •...</span>
-            <span><i class="fa-solid fa-palette"></i> DESIGN SYSTEM...</span>
-            <!-- Repeat for seamless loop -->
-            <span><i class="fa-solid fa-leaf"></i> SELAMAT DATANG...</span>
-            <span><i class="fa-solid fa-bolt"></i> AVAILABLE FOR...</span>
-            <span><i class="fa-solid fa-code"></i> HTML • CSS •...</span>
-            <span><i class="fa-solid fa-palette"></i> DESIGN SYSTEM...</span>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16">
-
-        <!-- SECTION 1: HERO & ABOUT (Inspired by Image 1 Header & Image 2 Notebook Window) -->
-        <section id="about" class="pt-2">
-            <!-- Window Frame Container -->
-            <div class="bg-windowGray border-2 border-darkText shadow-brutal-lg rounded-t-lg overflow-hidden relative">
-                <!-- Retro Window Header -->
-                <div class="bg-forest text-warmYellow px-3 py-2 border-b-2 border-darkText flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-tree text-sm"></i>
-                        <span class="font-pixel text-xl tracking-wider uppercase font-bold">C:\USERS\DEVELOPER\PROFILE.EXE</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <button class="w-5 h-5 p-2 -m-1.5 bg-warmYellow text-darkText border border-darkText flex items-center justify-center font-bold text-xs hover:bg-white">-</button>
-                        <button class="w-5 h-5 p-2 -m-1.5 bg-warmYellow text-darkText border border-darkText flex items-center justify-center font-bold text-xs hover:bg-white">□</button>
-                        <button onclick="alert('Window System Active')" class="w-5 h-5 p-2 -m-1.5 bg-rusticRed text-white border border-darkText flex items-center justify-center font-bold text-xs hover:bg-red-700">×</button>
-                    </div>
-                </div>
-
-                <!-- Window Inner Body -->
-                <div class="p-6 md:p-10 bg-paperBg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
-                    
-                    <!-- Washi Tape Accent -->
-                    <div class="washi-tape absolute -top-3 left-12 px-6 py-1 font-pixel text-darkText text-sm font-bold rotate-[-2deg] z-10 hidden sm:block">
-                        READ_ME.TXT
-                    </div>
-
-                    <!-- Left: Avatar / Visual Graphic -->
-                    <div class="lg:col-span-5 flex flex-col items-center order-2 lg:order-1">
-                        <div class="relative w-full max-w-sm">
-                            <!-- Background Accent Card -->
-                            <div class="absolute inset-0 bg-rusticRed border-2 border-darkText translate-x-3 translate-y-3 rounded-lg"></div>
-                            
-                            <!-- Main Photo Card -->
-                            <div class="relative bg-white border-2 border-darkText p-3 rounded-lg">
-                                <div class="bg-forest/10 border border-darkText/20 rounded p-2 text-center mb-3">
-                                 <span class="font-pixel text-xl text-forest font-bold">Bintang Callista Virjianto.ID</span>
-                                </div>
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" 
-                                     alt="Developer Portrait" 
-                                     class="w-full h-64 sm:h-72 object-cover border-2 border-darkText rounded filter grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
-                                     onerror="this.src='https://placehold.co/600x600/486C2F/F1E5A1?text=Developer+Avatar'">
-                                
-                                <div class="mt-3 pt-2 border-t-2 border-dashed border-darkText flex justify-between items-center text-xs font-heading font-bold">
-                                    <span class="bg-vibrantOrange text-white px-2 py-0.5 rounded border border-darkText">JUNIOR FULLSTACK BUILDER</span>
-                                    <span class="text-rusticRed"><i class="fa-solid fa-location-dot"></i> INDONESIA</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right: Bio & Key Details -->
-                    <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
-                        <div class="inline-block bg-warmYellow border-2 border-darkText px-3 py-1 rounded-full shadow-brutal-sm font-heading text-xs font-bold text-rusticRed">
-                            <i class="fa-solid fa-seedling"></i> CREATIVE DEVELOPER & DESIGNER
-                        </div>
-
-                        <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-darkText leading-none">
-                            Turning Lines of Code into <span class="text-forest underline decoration-vibrantOrange decoration-wavy decoration-2">Meaningful</span> Experiences.
-                        </h1>
-
-                        <p class="text-base sm:text-lg text-darkText/90 font-medium leading-relaxed">
-                            Halo! Saya seorang pengembang web dan spesialis operasional teknis yang fokus pada <strong class="text-rusticRed">kerapian antarmuka (UI Layout)</strong>, serta efisiensi <strong class="text-forest">pengolahan data</strong>. Terbiasa membangun situs yang cepat, responsif, dan mudah diakses, sekaligus mengelola dokumen teknis seperti rekapitulasi data dan administrasi digital secara terstruktur.
-                        </p>
-
-                        <!-- Tech Badges -->
-                        <div class="space-y-2">
-                            <span class="font-pixel text-lg text-darkText font-bold uppercase block">SKILL MATRIX:</span>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">HTML5 & CSS3</span>
-                                <span class="px-3 py-1 bg-rusticRed text-white border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">JavaScript</span>
-                                <span class="px-3 py-1 bg-vibrantOrange text-white border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">React (Static Build)</span>
-                                <span class="px-3 py-1 bg-warmYellow text-darkText border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">Python</span>
-                                <span class="px-3 py-1 bg-white text-darkText border-2 border-darkText font-heading text-xs font-bold shadow-brutal-sm rounded-md">PostgreSQL (Database)</span>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="pt-4 flex flex-wrap gap-4 items-center">
-                            <a href="#projects" class="px-6 py-3 bg-forest text-warmYellow font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-rusticRed hover:text-white hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
-                                <span>Lihat Portofolio</span>
-                                <i class="fa-solid fa-arrow-down"></i>
-                            </a>
-                            <a href="#contact" class="px-6 py-3 bg-warmYellow text-darkText font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-vibrantOrange hover:text-white hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
-                                <span>Hubungi Saya</span>
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </a>
-                           <a href="cv.html" class="px-6 py-3 bg-rusticRed text-white font-heading font-bold rounded-full border-2 border-darkText shadow-brutal hover:bg-forest hover:text-warmYellow hover:translate-y-0.5 hover:shadow-none transition-all flex items-center gap-2">
-                                <span>Curriculum Vitae</span>
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: PROJECTS SHOWCASE (Numbered Cards Inspired by Flying Phoenix Image 1 & PLM Image 2) -->
-        <section id="projects" class="space-y-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-darkText pb-4">
-                <div>
-                    <div class="flex items-center gap-2 text-rusticRed font-pixel text-xl font-bold">
-                        <span>[ SECTION // 02 ]</span>
-                    </div>
-                    <h2 class="font-heading text-3xl sm:text-4xl font-bold text-darkText">
-                        Proyek Unggulan <span class="text-forest">/ Case Studies</span>
-                    </h2>
-                </div>
-                <p class="text-sm font-medium text-darkText/80 max-w-md">
-                    Koleksi proyek pilihan dengan implementasi JavaScript modern, React static site, serta layout responsif.
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><title>Bintang Callista Virjianto — Creative Developer &amp; UI Architect</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base { html, body { margin: 0; padding: 0; background-color: #F8F8F2; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; } @keyframes pulse-subtle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.15); } } .animate-pulse-subtle { animation: pulse-subtle 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-container": "#3b4a32", "on-primary-fixed": "#121f0a", "on-error-container": "#93000a", "surface-variant": "#cee9d3", "outline": "#75786f", "on-secondary-fixed-variant": "#384c37", "primary-fixed": "#d7e8c7", "primary": "#546349", "error": "#ba1a1a", "inverse-on-surface": "#ddf8e1", "tertiary": "#705c2c", "primary-container": "#a8b99a", "surface-container-low": "#dffae4", "surface-container-lowest": "#ffffff", "inverse-primary": "#bbccac", "tertiary-container": "#cab179", "on-tertiary-fixed-variant": "#564417", "error-container": "#ffdad6", "secondary-fixed": "#d2e9cd", "tertiary-fixed": "#fbe0a4", "surface-container-high": "#d4efd9", "outline-variant": "#c5c8bd", "on-secondary-fixed": "#0e1f0e", "secondary-fixed-dim": "#b6cdb2", "on-secondary": "#ffffff", "on-tertiary-container": "#554316", "background": "#e9ffec", "surface": "#e9ffec", "secondary-container": "#d2e9cd", "on-primary-fixed-variant": "#3c4b33", "inverse-surface": "#1f3526", "on-surface": "#092012", "on-tertiary-fixed": "#251a00", "surface-dim": "#c6e1cb", "on-tertiary": "#ffffff", "secondary": "#50644e", "on-error": "#ffffff", "tertiary-fixed-dim": "#dec48a", "surface-tint": "#546349", "surface-bright": "#e9ffec", "on-secondary-container": "#556a53", "on-background": "#092012", "on-surface-variant": "#444840", "primary-fixed-dim": "#bbccac", "on-primary": "#ffffff", "surface-container-highest": "#cee9d3", "surface-container": "#daf5de" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1.5rem", "space-sm": "0.5rem", "space-xl": "3rem", "gutter-mobile": "1rem", "gutter-tablet": "1.25rem", "space-xs": "0.25rem", "margin": "4rem", "space-lg": "1.75rem", "margin-mobile": "1.25rem", "margin-tablet": "2rem", "space-md": "1rem" }, "fontFamily": { "headline-lg-mobile": ["Newsreader"], "headline-sm": ["Newsreader"], "body-md": ["Plus Jakarta Sans"], "title-lg": ["Plus Jakarta Sans"], "display-xl": ["Newsreader"], "body-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg": ["Newsreader"], "body-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-md": ["Newsreader"], "display-xl-mobile": ["Newsreader"], "title-md": ["Plus Jakarta Sans"] }, "fontSize": { "headline-lg-mobile": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-sm": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["1rem", { "lineHeight": "1.625rem", "letterSpacing": "0", "fontWeight": "400" }], "title-lg": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-xl": ["4.5rem", { "lineHeight": "5rem", "letterSpacing": "-0.03em", "fontWeight": "400" }], "body-lg": ["1.125rem", { "lineHeight": "1.875rem", "letterSpacing": "0", "fontWeight": "400" }], "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.1em", "fontWeight": "600" }], "headline-lg": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.02em", "fontWeight": "400" }], "body-sm": ["0.875rem", { "lineHeight": "1.375rem", "letterSpacing": "0.005em", "fontWeight": "400" }], "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.08em", "fontWeight": "600" }], "headline-md": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.015em", "fontWeight": "400" }], "display-xl-mobile": ["2.75rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "400" }], "title-md": ["1.125rem", { "lineHeight": "1.625rem", "letterSpacing": "-0.005em", "fontWeight": "500" }] } } } };</script></head><body class="min-h-screen bg-[#F8F8F2] text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 pointer-events-none"><div class="h-20 w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between pointer-events-auto"><a class="flex items-center gap-space-sm group focus:outline-none" data-path="home" href="#"><span class="w-9 h-9 rounded-full bg-surface-container-lowest/80 backdrop-blur-md shadow-[0_4px_16px_rgba(52,75,59,0.06)] flex items-center justify-center font-headline-sm text-headline-sm text-primary transition-transform duration-300 group-hover:scale-105">B</span><div class="flex flex-col"><span class="font-title-md text-title-md tracking-tight text-on-surface leading-none group-hover:text-primary transition-colors">Bintang Callista</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mt-0.5">Atelier Virjianto</span></div></a><div class="hidden md:flex items-center p-space-xs rounded-full bg-surface-container-lowest/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_rgba(52,75,59,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.9)]"><nav class="flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-[0_2px_8px_rgba(52,75,59,0.08)]"><a aria-current="page" class="px-space-md py-space-xs rounded-full uppercase tracking-wider transition-all duration-200 bg-primary-container text-on-primary-container font-semibold shadow-[0_2px_8px_rgba(52,75,59,0.08)]" data-path="home" href="#">Home</a><a class="px-space-md py-space-xs rounded-full font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 transition-all duration-200" data-path="about" href="#">About</a><a class="px-space-md py-space-xs rounded-full font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 transition-all duration-200" data-path="experience" href="#">Experience</a><a class="px-space-md py-space-xs rounded-full font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 transition-all duration-200" data-path="projects" href="#">Projects</a><a class="px-space-md py-space-xs rounded-full font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 transition-all duration-200" data-path="skills" href="#">Skills</a><a class="px-space-md py-space-xs rounded-full font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60 transition-all duration-200" data-path="contact" href="#">Contact</a></nav></div><div class="flex items-center gap-space-sm"><div class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/80 backdrop-blur-md shadow-[0_2px_12px_rgba(52,75,59,0.04)]"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse-subtle"></span><span class="font-label-sm text-label-sm tracking-wide text-on-surface-variant">Available for Opportunities</span></div><a class="hidden xl:inline-flex items-center px-space-md py-space-xs rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider shadow-[0_4px_16px_rgba(84,99,73,0.18)] hover:bg-on-primary-container transition-colors duration-200" data-path="contact" href="#">Inquire</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin pt-20 pb-space-xl min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Ambient Specular Light Fields (Natural Luxury & Matcha Glow) -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 -left-20 w-[38rem] h-[38rem] rounded-full bg-primary-container/20 blur-[130px] pointer-events-none -z-10"></div>
+<div class="absolute top-80 right-[-10%] w-[32rem] h-[32rem] rounded-full bg-tertiary-container/15 blur-[120px] pointer-events-none -z-10"></div>
+<!-- ==================== 1. HERO SECTION ==================== -->
+<section class="relative pt-6 md:pt-14 pb-16 md:pb-28">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+<!-- Left Editorial Typography & Narrative (7 cols) -->
+<div class="lg:col-span-7 flex flex-col space-y-6 md:space-y-8">
+<!-- Category & Micro Badges Strip -->
+<div class="flex flex-wrap items-center gap-3"><span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm border border-outline-variant/30 text-on-surface font-label-sm text-label-sm tracking-wide"><span class="w-2 h-2 rounded-full bg-primary animate-pulse-subtle"></span><span class="">Full-Stack / Web Developer • Data Operations Specialist • Bandung, Indonesia</span></span></div>
+<!-- Hero Name Hierarchy -->
+<div class="flex flex-col space-y-2">
+<h1 class="font-display-xl text-display-xl tracking-tight text-on-surface text-balance">
+              Bintang <span class="italic font-display-xl text-primary">Callista</span> Virjianto
+            </h1>
+<p class="font-label-md text-label-md uppercase tracking-[0.2em] text-outline pt-1">
+              Atelier of Systems — Architecting Modern Web &amp; Structured Data
+            </p>
+</div>
+<!-- Manifesto Copy -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl text-balance leading-relaxed">Building thoughtful digital experiences through modern web technologies, structured data pipelines, and creative problem-solving.</p>
+<!-- Glass Atelier CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<!-- Download CV Button (Liquid Glass Style) -->
+<a class="group relative inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/15 transition-all duration-300" href="#contact">
+<span class="w-7 h-7 rounded-full bg-primary-container/40 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-[16px]">download</span>
+</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-semibold">Download Curriculum Vitae</span>
+<span class="material-symbols-outlined text-outline text-[16px] transition-transform duration-300 group-hover:translate-x-0.5">arrow_forward</span>
+</a>
+<!-- GitHub Anchor -->
+<a class="group inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-surface-container/70 backdrop-blur-md hover:bg-surface-container-high transition-all duration-200" href="https://github.com/JasjusSirsak" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">code</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant group-hover:text-on-surface">GitHub Profile</span>
+<span class="material-symbols-outlined text-outline text-[14px]">north_east</span>
+</a>
+</div>
+<!-- Quick Metrics Bar -->
+<div class="grid grid-cols-3 gap-4 pt-4 max-w-lg">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">88<span class="text-tertiary">/100</span></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Software Eng GPA</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">2+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Int'l Summits</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">Full-Stack</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">End-to-End Pipeline</span>
+</div>
+</div>
+</div>
+<!-- Right Artistic Composition (Liquid Glass Mesh & Geometry, 5 cols) -->
+<div class="lg:col-span-5 relative flex items-center justify-center">
+<!-- Glass Vessel Frame -->
+<div class="relative w-full max-w-md aspect-[4/5] rounded-3xl p-6 bg-surface-container-lowest/60 backdrop-blur-2xl shadow-2xl shadow-primary/10 overflow-hidden flex flex-col justify-between"><div class="absolute inset-0 bg-gradient-to-br from-primary-container/20 via-transparent to-tertiary-container/25 pointer-events-none"></div><div class="absolute inset-0 opacity-30 mix-blend-multiply pointer-events-none flex items-center justify-center p-4"><svg class="w-full h-full text-primary" fill="none" stroke="currentColor" viewBox="0 0 400 480"><circle cx="200" cy="240" r="140" stroke-dasharray="3 3" stroke-width="0.75"></circle><circle cx="200" cy="240" r="80" stroke-width="1"></circle><ellipse cx="200" cy="240" rx="160" ry="70" stroke-width="0.8" transform="rotate(-25 200 240)"></ellipse><ellipse cx="200" cy="240" rx="160" ry="70" stroke-width="0.8" transform="rotate(35 200 240)"></ellipse></svg></div><div class="relative z-10 flex items-center justify-between pb-4"><div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span><span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span><span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span></div><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Engineering &amp; Craft</span></div><div class="relative z-10 my-auto space-y-4 text-center"><div class="inline-flex p-4 rounded-2xl bg-surface-container-lowest/90 backdrop-blur-xl shadow-md mx-auto"><span class="material-symbols-outlined text-primary text-[40px]">account_circle</span></div><div class="space-y-1"><h3 class="font-title-lg text-title-lg text-on-surface">Bintang Callista Virjianto</h3><p class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-medium">Creative Developer &amp; Data Operations</p></div><div class="space-y-2 pt-2 text-left"><div class="p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface font-medium">Full-Stack Web Dev</span><span class="font-label-sm text-label-sm text-primary uppercase font-semibold">React • Express</span></div><div class="p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface font-medium">Data Pipelines &amp; Automation</span><span class="font-label-sm text-label-sm text-tertiary uppercase font-semibold">Airbyte • Python</span></div><div class="p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface font-medium">SMK ICB Cinta Niaga</span><span class="font-label-sm text-label-sm text-primary font-bold">88 / 100 GPA</span></div></div></div><div class="relative z-10 pt-2"><div class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-lowest/90 backdrop-blur-md shadow-sm"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary animate-pulse-subtle"></span><span class="font-label-sm text-label-sm text-on-surface font-medium">Bandung, West Java</span></div><span class="font-label-sm text-label-sm text-tertiary font-semibold uppercase">Available 2026</span></div></div></div>
+<!-- Asymmetric Accent Tile Behind Glass Shell -->
+<div class="absolute -bottom-6 -right-4 w-40 h-32 rounded-2xl bg-primary-container/40 -z-10 blur-xl"></div>
+<div class="absolute -top-4 -left-4 w-28 h-28 rounded-2xl bg-tertiary-container/30 -z-10 blur-lg"></div>
+</div>
+</div>
+</section>
+<!-- ==================== 2. ABOUT ME SECTION ==================== -->
+<section class="py-16 md:py-24" id="about">
+<div class="flex flex-col space-y-12">
+<!-- Section Header With Literary Cadence -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
+<div class="space-y-2 max-w-2xl">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 01 — Profile</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              A dual foundation in <span class="italic font-headline-lg text-primary">Web Development</span> &amp; Data Operations.
+            </h2>
+</div>
+<div class="md:text-right">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Software Engineering Pedigree</span>
+</div>
+</div>
+<!-- Editorial Split: Main Narrative Text + Highlight Pillar Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Narrative Left Panel (4 cols) -->
+<div class="lg:col-span-4 p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-label-md text-label-md font-bold text-primary">
+                BC
+              </span>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                Web Developer and Data Operations Specialist with a background in Software Engineering. Experienced in full-stack web development, REST API architecture, database management, and data processing.
+              </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Combines rigorous technical craftsmanship with hands-on university research experience at STEI ITB, alongside cross-cultural communication honed through international academic conference coordination.
+              </p>
+</div>
+<!-- Micro Bio Signoff Tag -->
+<div class="pt-4 flex items-center justify-between">
+<div>
+<p class="font-title-md text-title-md text-on-surface">Bintang C. V.</p>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Bandung, West Java</p>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[28px]">verified</span>
+</div>
+</div>
+<!-- 5 Key Pillars Grid (8 cols) -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Pillar 01 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest/80 transition-all duration-300 shadow-sm flex flex-col justify-between space-y-4 group">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary/70 group-hover:text-primary transition-colors">01</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">layers</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface pb-1">Full-Stack Development</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Modern reactive client interfaces and resilient backend servers using React, Next.js, Node.js, and Express.js with clean architectural patterns.</p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-2">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">React</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Next.js</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Node.js</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Express</span>
+</div>
+</div>
+<!-- Pillar 02 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest/80 transition-all duration-300 shadow-sm flex flex-col justify-between space-y-4 group">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary/70 group-hover:text-primary transition-colors">02</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">sync_alt</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface pb-1">Data Pipeline &amp; Automation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ETL orchestration with Airbyte, automated Python web crawlers, data transformation jobs, and seamless ingestion pipelines.</p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-2">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Airbyte</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Python</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Web Crawling</span>
+</div>
+</div>
+<!-- Pillar 03 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest/80 transition-all duration-300 shadow-sm flex flex-col justify-between space-y-4 group">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary/70 group-hover:text-primary transition-colors">03</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">database</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface pb-1">Database Management</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Relational modeling, indexing, schema design, and query optimization across PostgreSQL and MySQL environments via DBeaver.</p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-2">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">PostgreSQL</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">MySQL</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Relational Schemas</span>
+</div>
+</div>
+<!-- Pillar 04 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest/80 transition-all duration-300 shadow-sm flex flex-col justify-between space-y-4 group">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary/70 group-hover:text-primary transition-colors">04</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">query_stats</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface pb-1">Research &amp; Data Analysis</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Synthesizing raw research datasets into actionable interactive dashboards with Metabase and Python-powered Google Colab environments.</p>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-2">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Metabase</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Google Colab</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Data Viz</span>
+</div>
+</div>
+<!-- Pillar 05 (Spans 2 cols on tablet/desktop) -->
+<div class="md:col-span-2 p-6 rounded-2xl bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest/80 transition-all duration-300 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group">
+<div class="flex items-start gap-4">
+<span class="font-headline-sm text-headline-sm text-primary/70 group-hover:text-primary transition-colors">05</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">International Event Coordination</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">Active organizational presence and logistical facilitation for ICISS 2025 and I-SING Singapore 2025, operating with international delegates and university teams.</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-1.5 shrink-0">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/30 text-on-tertiary-fixed font-label-sm text-label-sm">ICISS 2025</span>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">I-SING Singapore</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== 3. PROFESSIONAL EXPERIENCE SECTION ==================== -->
+<section class="py-16 md:py-24" id="experience">
+<div class="flex flex-col space-y-12">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 02 — Trajectory</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              Professional <span class="italic font-headline-lg text-primary">Experience</span> &amp; Research
+            </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+            Hands-on technical roles spanning enterprise laboratory research and intensive full-stack product building.
+          </p>
+</div>
+<!-- Vertical Editorial Timeline -->
+<div class="relative space-y-10">
+<!-- Timeline Vertical Spine -->
+<div class="absolute left-4 md:left-8 top-6 bottom-6 w-0.5 bg-primary-container/40 -z-10"></div>
+<!-- Experience 01: Geeksfarm Bootcamp -->
+<div class="relative flex items-start gap-6 md:gap-10">
+<!-- Node Marker -->
+<div class="w-8 md:w-16 flex items-center justify-center shrink-0 pt-2">
+<span class="w-8 h-8 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center font-label-sm text-label-sm text-primary font-bold">
+                01
+              </span>
+</div>
+<!-- Content Glass Card -->
+<div class="flex-1 p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 hover:shadow-lg transition-all duration-300">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider">Full-Stack Bootcamp</span>
+<span class="font-label-sm text-label-sm text-outline">Intensive</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface pt-1">
+                    Geeksfarm Full-Stack Web Development Participant
+                  </h3>
+</div>
+<div class="flex flex-col md:items-end">
+<span class="font-label-md text-label-md text-primary font-semibold">September 2026 — November 2026</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bandung, Indonesia</span>
+</div>
+</div>
+<!-- Responsibilities & Highlights -->
+<div class="pt-2 space-y-3">
+<div class="p-3.5 rounded-2xl bg-surface-container-low/70 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">verified</span>
+<p class="font-body-md text-body-md text-on-surface">
+<strong>Primary Capstone Deliverable:</strong> Developed <strong>SAMS (School Attendance Management System)</strong>, a production-grade full-stack portal to automate attendance lifecycle tracking.
+                  </p>
+</div>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Built fluid, responsive user interfaces using <strong>React.js</strong> and customized <strong>Tailwind CSS</strong> utility architectures.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Implemented structured, predictable client state management and data caching across application routes.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Engineered robust RESTful backend APIs using <strong>Express.js</strong> with route modularity and error interception.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Implemented secure user authentication sessions and real-time student check-in log queries.</span>
+</li>
+</ul>
+</div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-2 pt-6">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">React.js</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Express.js</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Tailwind CSS</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">REST API</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">State Management</span>
+</div>
+</div>
+</div>
+<!-- Experience 02: STEI ITB Research Assistant -->
+<div class="relative flex items-start gap-6 md:gap-10">
+<!-- Node Marker -->
+<div class="w-8 md:w-16 flex items-center justify-center shrink-0 pt-2">
+<span class="w-8 h-8 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center font-label-sm text-label-sm text-primary font-bold">
+                02
+              </span>
+</div>
+<!-- Content Glass Card -->
+<div class="flex-1 p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 hover:shadow-lg transition-all duration-300">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-on-tertiary-fixed font-label-sm text-label-sm uppercase tracking-wider">Research &amp; Systems</span>
+<span class="font-label-sm text-label-sm text-outline">Academic Laboratory</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface pt-1">
+                    SCCIC, STEI ITB — Research Assistant Intern
+                  </h3>
+<p class="font-body-sm text-body-sm text-outline">Smart City &amp; Community Innovation Center, School of Electrical Engineering &amp; Informatics ITB</p>
+</div>
+<div class="flex flex-col md:items-end">
+<span class="font-label-md text-label-md text-primary font-semibold">July 2025 — November 2025</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bandung, Indonesia</span>
+</div>
+</div>
+<!-- Responsibilities & Highlights -->
+<div class="pt-2 space-y-3">
+<div class="p-3.5 rounded-2xl bg-surface-container-low/70 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">insights</span>
+<p class="font-body-md text-body-md text-on-surface">
+<strong>Laboratory Core Focus:</strong> Orchestrated automated research ingestion pipelines with <strong>Airbyte</strong>, scraped multi-source academic corpora, and transformed analytics for national smart city initiatives.
+                  </p>
+</div>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Designed resilient data integration pipelines utilizing <strong>Airbyte</strong> connectors into central repositories.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Executed web crawlers and quantitative exploratory data analysis via <strong>Python</strong> &amp; <strong>Google Colab</strong>.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Visualized complex research indicators into real-time business intelligence boards using <strong>Metabase</strong>.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Enhanced researcher administrative web systems using <strong>PostgreSQL</strong>, <strong>Node.js</strong>, PHP, and JavaScript.</span>
+</li>
+<li class="flex items-start gap-2.5 md:col-span-2">
+<span class="material-symbols-outlined text-tertiary text-[16px] shrink-0 mt-1">public</span>
+<span class="font-body-sm text-body-sm text-on-surface">Actively participated and supported international coordination for <strong>ICISS 2025</strong> and <strong>I-SING International Games Singapore 2025</strong> delegations.</span>
+</li>
+</ul>
+</div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-2 pt-6">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Airbyte</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">PostgreSQL</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Python Crawling</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Metabase</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Google Colab</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Node.js</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== 4. FEATURED PROJECTS SECTION ==================== -->
+<section class="py-16 md:py-24" id="projects">
+<div class="flex flex-col space-y-10">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 03 — Showcase</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              Featured <span class="italic font-headline-lg text-primary">Project</span>
+</h2>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Selected Work 2026</span>
+</div>
+<!-- Heroic Showcase Card for SAMS -->
+<div class="p-8 md:p-12 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-2xl shadow-xl shadow-primary/5">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+<!-- Left Info Panel (5 cols) -->
+<div class="lg:col-span-5 flex flex-col space-y-6"><div class="flex items-center gap-3"><span class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider">Featured Capstone</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Geeksfarm Bootcamp</span></div><div class="space-y-2"><h3 class="font-headline-md text-headline-md text-on-surface">SAMS</h3><p class="font-title-md text-title-md text-primary font-serif italic">School Attendance Management System</p></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">A web-based digital attendance management system designed to streamline institutional records and monitor attendance history.</p><div class="space-y-2.5 pt-1"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">verified</span><span class="font-body-sm text-body-sm text-on-surface">Author &amp; Full-Stack Developer: Bintang Callista Virjianto</span></div><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">admin_panel_settings</span><span class="font-body-sm text-body-sm text-on-surface">Role-based access for educators and administrators</span></div><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">history_edu</span><span class="font-body-sm text-body-sm text-on-surface">Daily attendance ledger and historical export capabilities</span></div></div><div class="flex flex-wrap gap-2 pt-2"><span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">React.js</span><span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">Tailwind CSS</span><span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">Express.js</span></div><div class="flex flex-wrap items-center gap-4 pt-4"><a class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-on-primary-container transition-all duration-200 shadow-md shadow-primary/20" href="sams-case-study.html"><span class="">View Case Study</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span></a><a class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-surface-container/60 hover:bg-surface-container text-on-surface font-label-md text-label-md uppercase tracking-wider transition-colors duration-200" href="https://github.com/JasjusSirsak" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[16px]">folder_code</span><span class="">GitHub Repository</span></a></div></div>
+<!-- Right Interface Mockup Artifact (7 cols) -->
+<div class="lg:col-span-7 relative"><div class="w-full rounded-2xl bg-surface-container-low p-4 md:p-6 shadow-xl shadow-primary/10"><div class="flex items-center justify-between pb-4"><div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-tertiary-container"></span><span class="w-3 h-3 rounded-full bg-primary-container"></span><span class="w-3 h-3 rounded-full bg-outline-variant"></span><span class="ml-2 font-label-sm text-label-sm text-outline font-mono">sams.app/dashboard/attendance</span></div><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="">Capstone Interface Mockup</span></span></div><div class="space-y-4"><div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div class="space-y-0.5"><h4 class="font-title-md text-title-md text-on-surface">Attendance Register &amp; Overview</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Academic Session Attendance Management</p></div><div class="flex items-center gap-2 shrink-0"><span class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm">Cohort View</span><span class="px-2.5 py-1 rounded-lg bg-primary-container/40 text-on-primary-container font-label-sm text-label-sm font-semibold">Daily Session</span></div></div><div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm space-y-3"><div class="flex items-center justify-between pb-1"><span class="font-title-md text-title-md text-on-surface">Student Roster &amp; Status Logs</span><span class="font-label-sm text-label-sm text-outline font-mono">Record Entry Ledger</span></div><div class="space-y-2"><div class="p-3 rounded-lg bg-surface-container-high/40 flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold text-on-primary-fixed">01</span><div><p class="font-body-sm text-body-sm font-semibold text-on-surface">Student Roster Entry A</p><p class="font-label-sm text-label-sm text-outline">Class Section • Student ID Verified</p></div></div><span class="px-3 py-1 rounded-full bg-primary-container/40 text-on-primary-container font-label-sm text-label-sm font-medium">Present</span></div><div class="p-3 rounded-lg bg-surface-container-high/40 flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold text-on-secondary-fixed">02</span><div><p class="font-body-sm text-body-sm font-semibold text-on-surface">Student Roster Entry B</p><p class="font-label-sm text-label-sm text-outline">Class Section • Student ID Verified</p></div></div><span class="px-3 py-1 rounded-full bg-primary-container/40 text-on-primary-container font-label-sm text-label-sm font-medium">Present</span></div><div class="p-3 rounded-lg bg-surface-container-high/40 flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold text-on-tertiary-fixed">03</span><div><p class="font-body-sm text-body-sm font-semibold text-on-surface">Student Roster Entry C</p><p class="font-label-sm text-label-sm text-outline">Class Section • Documented Permit</p></div></div><span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-medium">Excused</span></div></div><div class="pt-2 flex items-center justify-between border-t border-outline-variant/20"><span class="font-label-sm text-label-sm text-outline">Architecture: REST Endpoints via Express.js &amp; React Client</span><span class="font-label-sm text-label-sm text-primary font-medium">Full Lifecycle System</span></div></div></div></div><div class="absolute -bottom-6 -right-6 w-48 h-48 rounded-full bg-primary-container/30 blur-2xl -z-10"></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== 5. TECHNICAL SKILLS ==================== -->
+<section class="py-16 md:py-24" id="skills">
+<div class="flex flex-col space-y-12">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 04 — Capabilities</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              Technical <span class="italic font-headline-lg text-primary">Architecture</span> &amp; Toolkit
+            </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">
+            Categorical taxonomy of engineering languages, database engines, data pipelines, and communicative proficiencies.
+          </p>
+</div>
+<!-- Categorical Bento System (No arbitrary percentage bars!) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Category 1: Languages -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[24px]">code_blocks</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Syntax</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Programming Languages</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Core languages for frontend dynamism, backend APIs, and automation scripts.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">JavaScript (ES6+)</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">TypeScript</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">PHP</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Python</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">HTML5</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">CSS3</span>
+</div>
+</div>
+<!-- Category 2: Frameworks & Tools -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6 lg:col-span-2">
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[24px]">hub</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Ecosystem</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Frameworks, Libraries &amp; Orchestration</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Modern toolchains powering user interfaces, state management, and ETL ingestion.</p>
+</div>
+<div class="flex flex-wrap gap-2.5">
+<span class="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-medium">React.js</span>
+<span class="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-medium">Next.js</span>
+<span class="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-medium">Express.js</span>
+<span class="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-medium">Node.js</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Redux / Redux Toolkit</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Tailwind CSS</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Bootstrap</span>
+<span class="px-3.5 py-1.5 rounded-full bg-tertiary-container/40 text-on-tertiary-fixed font-label-md text-label-md font-medium">Airbyte</span>
+<span class="px-3.5 py-1.5 rounded-full bg-tertiary-container/40 text-on-tertiary-fixed font-label-md text-label-md font-medium">Metabase</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Git &amp; GitHub</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Google Colab</span>
+</div>
+</div>
+<!-- Category 3: Databases -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[24px]">database</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Persistence</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Databases</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Relational modeling, transaction integrity, and administrative querying.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">PostgreSQL</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">MySQL</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">DBeaver GUI</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Relational Schemas</span>
+</div>
+</div>
+<!-- Category 4: Professional Skills -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[24px]">psychology</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Methodology</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Professional Skills</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Operational discipline, architecture design, and public communication.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Data Management &amp; Ops</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">System Analysis</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Public Speaking</span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Technical Documentation</span>
+</div>
+</div>
+<!-- Category 5: Languages -->
+<div class="p-6 md:p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[24px]">translate</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Communication</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Spoken Languages</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bilingual communication across local teams and international delegations.</p>
+</div>
+<div class="space-y-2.5">
+<div class="p-3 rounded-2xl bg-surface-container flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Indonesian</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-medium">Native</span>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">English</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-tertiary font-medium">Intermediate</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== 6. EDUCATION, CERTIFICATIONS & ORGANIZATIONAL ==================== -->
+<section class="py-16 md:py-24" id="credentials">
+<div class="flex flex-col space-y-12">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 05 — Pedigree</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              Education &amp; <span class="italic font-headline-lg text-primary">Certifications</span>
+</h2>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Verified Records</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Education & Certification Column (7 cols) -->
+<div class="lg:col-span-7 space-y-6">
+<!-- Education Card -->
+<div class="p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-3">
+<span class="w-10 h-10 rounded-2xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[22px]">school</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Secondary Education</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">SMK Insan Cinta Bakti Niaga</h3>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">2023 — 2026</span>
+</div>
+<div class="space-y-2">
+<p class="font-body-md text-body-md text-on-surface">
+<strong>Major:</strong> Software Engineering (Rekayasa Perangkat Lunak)
                 </p>
-            </div>
-
-            <!-- Numbered Project Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Project Card 01 -->
-                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
-                        01
-                    </div>
-                    <div>
-                        <span class="inline-block px-2.5 py-0.5 bg-forest/10 text-forest border border-forest font-heading text-xs font-bold rounded-full mb-3">
-                            WEB APP
-                        </span>
-                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
-                            Forest Soundscape Engine
-                        </h3>
-                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
-                            Generator audio sejuknya alam menggunakan Web Audio API tanpa file media eksternal berat.
-                        </p>
-                    </div>
-                    <div class="space-y-3 pt-3 border-t border-darkText/20">
-                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">JS ES6</span>
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">WEB AUDIO</span>
-                        </div>
-                        <button onclick="showProjectDetails('Forest Soundscape Engine', 'Aplikasi generator suara alami menggunakan sinyal gelombang Web Audio API JavaScript untuk menciptakan simulasi deru angin dan dedaunan hutan.', 'HTML5, Pure JS, Tailwind CSS')" 
-                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
-                            <span>Buka Preview</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project Card 02 -->
-                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
-                        02
-                    </div>
-                    <div>
-                        <span class="inline-block px-2.5 py-0.5 bg-rusticRed/10 text-rusticRed border border-rusticRed font-heading text-xs font-bold rounded-full mb-3">
-                            STATIC REACT
-                        </span>
-                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
-                            Retro OS Dashboard
-                        </h3>
-                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
-                            Sistem antarmuka gaya Windows 95 yang dibangun dengan React lalu di-build statis untuk GitHub Pages.
-                        </p>
-                    </div>
-                    <div class="space-y-3 pt-3 border-t border-darkText/20">
-                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">REACT</span>
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">STATIC BUILD</span>
-                        </div>
-                        <button onclick="showProjectDetails('Retro OS Dashboard', 'Sistem dashboard manajemen tugas dengan tema retro OS. Dikembangkan dengan React JSX dan dikompilasi menjadi aset statis JavaScript agar kompatibel penuh dengan hosting GitHub Pages.', 'React.js, Tailwind, GitHub Actions')" 
-                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
-                            <span>Buka Preview</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project Card 03 -->
-                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
-                        03
-                    </div>
-                    <div>
-                        <span class="inline-block px-2.5 py-0.5 bg-vibrantOrange/10 text-vibrantOrange border border-vibrantOrange font-heading text-xs font-bold rounded-full mb-3">
-                            MARKDOWN CMS
-                        </span>
-                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
-                            Notebook Journal MD
-                        </h3>
-                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
-                            Platform jurnal pribadi berbasis Markdown dengan pembaca berkas statis otomatis.
-                        </p>
-                    </div>
-                    <div class="space-y-3 pt-3 border-t border-darkText/20">
-                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">MARKDOWN</span>
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">MARKED.JS</span>
-                        </div>
-                        <button onclick="showProjectDetails('Notebook Journal MD', 'Sistem pembaca blog ringan berbasis file .md statis. Memungkinkan penulis menambahkan tulisan tanpa database rumit.', 'JavaScript, Marked.js, Brutalism CSS')" 
-                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
-                            <span>Buka Preview</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project Card 04 -->
-                <div class="bg-white border-2 border-darkText rounded-xl p-5 shadow-brutal flex flex-col justify-between hover:-translate-y-1 hover:shadow-brutal-lg transition-all group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-warmYellow border-b-2 border-l-2 border-darkText flex items-center justify-center font-pixel text-2xl font-bold text-rusticRed">
-                        04
-                    </div>
-                    <div>
-                        <span class="inline-block px-2.5 py-0.5 bg-forest/10 text-forest border border-forest font-heading text-xs font-bold rounded-full mb-3">
-                            PORTFOLIO
-                        </span>
-                        <h3 class="font-heading text-xl font-bold text-darkText group-hover:text-rusticRed transition-colors mb-2">
-                            Forest Brutalism Theme
-                        </h3>
-                        <p class="text-xs text-darkText/80 leading-relaxed mb-4">
-                            Desain portofolio unik yang menggabungkan estetika kaset retro, windows 9x, dan elemen hutan.
-                        </p>
-                    </div>
-                    <div class="space-y-3 pt-3 border-t border-darkText/20">
-                        <div class="flex flex-wrap gap-1 text-[10px] font-bold">
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">HTML5</span>
-                            <span class="bg-paperBg border border-darkText px-1.5 py-0.5 rounded">TAILWIND</span>
-                        </div>
-                        <button onclick="showProjectDetails('Forest Brutalism Theme', 'Situs portofolio berkinerja tinggi dengan skor Lighthouse 100%. Bebas kerangka kerja berat.', 'HTML5, CSS3, JavaScript')" 
-                                class="w-full py-2 bg-warmYellow border-2 border-darkText rounded-lg font-heading text-xs font-bold hover:bg-forest hover:text-warmYellow transition-colors flex items-center justify-center gap-2">
-                            <span>Buka Preview</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 3: EXPERIENCE / SCHEDULE MATRIX (Inspired by Schedule Grid in Image 1) -->
-        <section id="experience" class="space-y-6">
-            <div class="bg-windowGray border-2 border-darkText rounded-xl p-6 shadow-brutal-lg space-y-6">
-                
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-darkText pb-4">
-                    <div>
-                        <span class="font-pixel text-xl text-rusticRed font-bold">[ MATRIX // TIMELINE ]</span>
-                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-darkText">
-                            Jadwal & Pengalaman Kerja
-                        </h2>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="px-3 py-1 bg-warmYellow border border-darkText rounded-full font-heading text-xs font-bold text-forest">
-                            <i class="fa-solid fa-calendar-days"></i> Periode 2023 - 2026
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Matrix Schedule Table (Inspired by Flying Phoenix Image 1) -->
-                <!-- Card Layout: Muncul di Mobile & Tablet, Hidden di Desktop -->
-<div class="lg:hidden space-y-4">
-    
-    <!-- Card 1 -->
-    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
-        <div class="flex justify-between items-start gap-2">
-            <span class="font-pixel text-lg font-bold text-rusticRed leading-none">2025 — SEKARANG</span>
-            <span class="shrink-0 px-2 py-0.5 bg-forest text-warmYellow text-[10px] font-heading font-bold rounded border border-darkText">AKTIF</span>
-        </div>
-        <h3 class="font-heading text-base font-bold text-darkText">Senior Web Developer</h3>
-        <p class="text-xs font-bold text-forest">Forest Tech Studio</p>
-        <p class="text-sm text-darkText/80 leading-relaxed">Membangun arsitektur React static site, optimasi performa web & animasi CSS.</p>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
-        <div class="flex justify-between items-start gap-2">
-            <span class="font-pixel text-lg font-bold text-forest leading-none">2024 — 2025</span>
-            <span class="shrink-0 px-2 py-0.5 bg-warmYellow text-darkText text-[10px] font-heading font-bold rounded border border-darkText">SELESAI</span>
-        </div>
-        <h3 class="font-heading text-base font-bold text-darkText">Frontend Specialist</h3>
-        <p class="text-xs font-bold text-forest">Creative Digital Co.</p>
-        <p class="text-sm text-darkText/80 leading-relaxed">Pengembangan komponen UI bertema brutalism, integrasi Markdown CMS statis.</p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="bg-white border-2 border-darkText rounded-lg p-4 space-y-2 shadow-brutal-sm">
-        <div class="flex justify-between items-start gap-2">
-            <span class="font-pixel text-lg font-bold text-vibrantOrange leading-none">2023 — 2024</span>
-            <span class="shrink-0 px-2 py-0.5 bg-windowGray text-darkText text-[10px] font-heading font-bold rounded border border-darkText">SELESAI</span>
-        </div>
-        <h3 class="font-heading text-base font-bold text-darkText">UI/UX & Web Designer</h3>
-        <p class="text-xs font-bold text-forest">Freelance / Independent</p>
-        <p class="text-sm text-darkText/80 leading-relaxed">Desain sistem warna kustom, pembuatan Wireframe & prototipe interaktif.</p>
-    </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Rigorous foundational curriculum covering algorithmic reasoning, web software development, relational database schemas, and Object-Oriented Programming principles.
+                </p>
 </div>
-
-<!-- Table Layout: Hidden di Mobile, Muncul di Desktop -->
-<div class="hidden lg:block overflow-x-auto">
-    <table class="w-full text-left border-collapse">
-        <thead>
-            <tr class="bg-forest text-warmYellow border-2 border-darkText font-heading text-sm font-bold">
-                <th class="p-3 border-r-2 border-darkText">Tahun / Periode</th>
-                <th class="p-3 border-r-2 border-darkText">Peran / Posisi</th>
-                <th class="p-3 border-r-2 border-darkText">Organisasi / Klien</th>
-                <th class="p-3">Fokus & Keterampilan Utama</th>
-            </tr>
-        </thead>
-        <tbody class="font-heading text-sm font-semibold divide-y-2 divide-darkText border-2 border-darkText bg-white">
-            <tr class="hover:bg-warmYellow/40 transition-colors">
-                <td class="p-3 border-r-2 border-darkText font-bold text-rusticRed">2025 - SEKARANG</td>
-                <td class="p-3 border-r-2 border-darkText font-bold">Senior Web Developer</td>
-                <td class="p-3 border-r-2 border-darkText">Forest Tech Studio</td>
-                <td class="p-3">Membangun arsitektur React static site, optimasi performa web & animasi CSS.</td>
-            </tr>
-            <tr class="hover:bg-warmYellow/40 transition-colors bg-paperBg/50">
-                <td class="p-3 border-r-2 border-darkText font-bold text-forest">2024 - 2025</td>
-                <td class="p-3 border-r-2 border-darkText font-bold">Frontend Specialist</td>
-                <td class="p-3 border-r-2 border-darkText">Creative Digital Co.</td>
-                <td class="p-3">Pengembangan komponen UI bertema brutalism, integrasi Markdown CMS statis.</td>
-            </tr>
-            <tr class="hover:bg-warmYellow/40 transition-colors">
-                <td class="p-3 border-r-2 border-darkText font-bold text-vibrantOrange">2023 - 2024</td>
-                <td class="p-3 border-r-2 border-darkText font-bold">UI/UX & Web Designer</td>
-                <td class="p-3 border-r-2 border-darkText">Freelance / Independent</td>
-                <td class="p-3">Desain sistem warna kustom, pembuatan Wireframe & prototipe interaktif.</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">military_tech</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Cumulative Academic Average</span>
 </div>
+<span class="font-headline-sm text-headline-sm text-primary">88<span class="text-on-surface-variant font-body-sm"> / 100</span></span>
+</div>
+</div>
+<!-- Certification Card -->
+<div class="p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-3">
+<span class="w-10 h-10 rounded-2xl bg-tertiary-container/30 flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Professional Assessment</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Junior Web Developer Certification</h3>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Issued 2026</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+<strong>Certifying Authority:</strong> PT Cakrawala Global Yaksa
+              </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Evaluated across front-end web composition, REST endpoint connectivity, responsive layout adaptability, and professional programming ethics.
+              </p>
+<div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">grade</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Competency Assessment Score</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-tertiary">85<span class="text-on-surface-variant font-body-sm"> / 100</span></span>
+</div>
+</div>
+</div>
+<!-- Organizational Leadership (5 cols) -->
+<div class="lg:col-span-5 p-8 rounded-3xl bg-surface-container-lowest/70 backdrop-blur-xl shadow-md shadow-primary/5 flex flex-col justify-between space-y-6">
+<div class="space-y-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Leadership &amp; Community</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Organizational Experience</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active leadership positions developing peer collaboration and event execution.</p>
+</div>
+<!-- Role 01 -->
+<div class="p-5 rounded-2xl bg-surface-container space-y-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-semibold">Staff Event</span>
+<span class="font-label-sm text-label-sm text-outline">2023 — 2025</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface">English Club SMK ICB Cinta Niaga</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Coordinated extracurricular speaking competitions, workshop sessions, and cross-grade cultural exchange activities.
+              </p>
+</div>
+<!-- Role 02 -->
+<div class="p-5 rounded-2xl bg-surface-container space-y-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-semibold">Dewan Ambalan</span>
+<span class="font-label-sm text-label-sm text-outline">2024 — 2025</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface">Pramuka SMK ICB Cinta Niaga</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Directed cohort expedition logistics, outdoor survival training, and community service operations with field responsibility.
+              </p>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container-low/80 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">diversity_3</span>
+<p class="font-body-sm text-body-sm text-on-surface">Demonstrated track record of teamwork and high-stress adaptability.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== 7. CONTACT SECTION ==================== -->
+<section class="py-16 md:py-24" id="contact">
+<div class="relative rounded-3xl p-8 md:p-14 bg-surface-container-lowest/80 backdrop-blur-2xl shadow-2xl shadow-primary/10 overflow-hidden">
+<!-- Ambient Champagne and Matcha Gradients -->
+<div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-primary-container/30 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-tertiary-container/20 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Headline Narrative (7 cols) -->
+<div class="lg:col-span-7 flex flex-col space-y-6">
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary font-semibold">Chapter 06 — Dialogue</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight text-balance">
+              Let's build something <span class="italic font-headline-lg text-primary">thoughtful</span> together.
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl text-balance">
+              Currently open for full-stack engineering roles, data operations pipelines, research collaborations, or software consulting. Based in Bandung, available globally.
+            </p>
+<div class="pt-2 flex flex-wrap items-center gap-4">
+<!-- Mailto Anchor -->
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider shadow-md hover:bg-on-primary-container transition-all duration-200" href="mailto:b.callista.v@gmail.com">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span class="">Send Direct Inquiry</span>
+</a>
+<!-- Copy Email Interactive Button -->
+<button class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-surface-container/70 hover:bg-surface-container text-on-surface font-label-md text-label-md uppercase tracking-wider transition-colors duration-200" id="copy-email-btn" type="button">
+<span class="material-symbols-outlined text-[18px]" id="copy-icon">content_copy</span>
+<span id="copy-label" class="">Copy Email</span>
+</button>
+</div>
+</div>
+<!-- Direct Channels Slate (5 cols) -->
+<div class="lg:col-span-5 p-6 md:p-8 rounded-2xl bg-surface-container-low/70 backdrop-blur-xl shadow-sm space-y-4">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Direct Communication Channels</span>
+<!-- Email Channel -->
+<a class="p-4 rounded-xl bg-surface-container-lowest hover:bg-surface-container transition-colors flex items-center justify-between group" href="mailto:b.callista.v@gmail.com">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">alternate_email</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Primary Inquiries</p>
+<p class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">b.callista.v@gmail.com</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">arrow_forward</span>
+</a>
+<!-- GitHub Channel -->
+<a class="p-4 rounded-xl bg-surface-container-lowest hover:bg-surface-container transition-colors flex items-center justify-between group" href="https://github.com/JasjusSirsak" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Source Repositories</p>
+<p class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">github.com/JasjusSirsak</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">north_east</span>
+</a>
+<!-- Location & Availability Tag -->
+<div class="pt-2 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+<span class="">UTC+7 (WIB) • Rapid Response</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">2026 Ready</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Inline Vanilla Micro-Interaction Script for Email Copy -->
+<script>
+    (function() {
+      const copyBtn = document.getElementById('copy-email-btn');
+      const copyLabel = document.getElementById('copy-label');
+      const copyIcon = document.getElementById('copy-icon');
+      const email = 'b.callista.v@gmail.com';
 
-            </div>
-        </section>
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(email).then(handleSuccess).catch(handleFallback);
+          } else {
+            handleFallback();
+          }
+        });
+      }
 
-        <!-- SECTION 4: MARKDOWN (.MD) READER SIMULATION -->
-        <section id="markdown-notes" class="space-y-6">
-            <div class="bg-white border-2 border-darkText rounded-xl p-6 shadow-brutal space-y-6">
-                
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-darkText pb-4">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-file-code text-rusticRed text-xl"></i>
-                            <span class="font-pixel text-xl text-rusticRed font-bold">MARKDOWN_VIEWER.EXE</span>
-                        </div>
-                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-darkText">
-                            Catatan & Dokumentasi Teknis (.md)
-                        </h2>
-                    </div>
-                    <!-- Select Article Tabs -->
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="loadMarkdownDoc('readme')" id="btn-readme" class="px-3 py-1 bg-forest text-warmYellow border-2 border-darkText rounded-md font-heading text-xs font-bold shadow-brutal-sm">
-                            README.md
-                        </button>
-                        <button onclick="loadMarkdownDoc('react-static')" id="btn-react-static" class="px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow">
-                            react_build.md
-                        </button>
-                        <button onclick="loadMarkdownDoc('forest-philosophy')" id="btn-forest-philosophy" class="px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow">
-                            filosofi_hutan.md
-                        </button>
-                    </div>
-                </div>
+      function handleSuccess() {
+        if (copyLabel) copyLabel.textContent = 'Copied to Clipboard!';
+        if (copyIcon) copyIcon.textContent = 'check';
+        setTimeout(resetCopyBtn, 2800);
+      }
 
-                <!-- Markdown Content Render Box -->
-                <div class="bg-paperBg border-2 border-darkText p-5 sm:p-8 rounded-lg relative overflow-hidden">
-                    <div class="absolute top-2 right-3 font-pixel text-xs text-darkText/60">
-                        PARSED WITH MARKED.JS
-                    </div>
-                    
-                    <div id="markdownOutput" class="prose max-w-none font-sans text-darkText leading-relaxed space-y-4">
-                        <!-- Content will be injected by JS -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 5: CONTACT & FOOTER (Inspired by Flying Phoenix Dark Footer Image 1) -->
-        <section id="contact">
-            <div class="bg-darkText text-paperBg border-2 border-darkText rounded-2xl p-6 sm:p-10 shadow-brutal-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                <!-- Contact Info -->
-                <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-rusticRed text-warmYellow font-pixel text-lg rounded border border-warmYellow/30">
-                        <span>● GET_IN_TOUCH.SH</span>
-                    </div>
-
-                    <h2 class="font-heading text-3xl sm:text-5xl font-extrabold text-warmYellow leading-tight">
-                        Mari Berkolaborasi atau Sekadar Menyapa <i class="fa-solid fa-leaf"></i>
-                    </h2>
-
-                    <p class="text-paperBg/80 text-sm sm:text-base font-medium">
-                        Apakah kamu membutuhkan situs portofolio, aplikasi web React yang siap dideploy secara statis ke GitHub Pages, atau desain brutalism unik? Kirimkan pesan sekarang!
-                    </p>
-
-                    <!-- Contact Details List -->
-                    <div class="space-y-3 font-heading text-sm">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-forest text-warmYellow rounded flex items-center justify-center border border-paperBg/20">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <span>email.kamu@example.com</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-rusticRed text-warmYellow rounded flex items-center justify-center border border-paperBg/20">
-                                <i class="fa-brands fa-github"></i>
-                            </div>
-                            <span>github.com/username-kamu</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-vibrantOrange text-paperBg rounded flex items-center justify-center border border-paperBg/20">
-                                <i class="fa-brands fa-linkedin"></i>
-                            </div>
-                            <span>linkedin.com/in/username-kamu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interactive Form Card -->
-                <div class="lg:col-span-5 order-1 lg:order-2">
-                    <form onsubmit="handleFormSubmit(event)" class="bg-paperBg text-darkText border-2 border-darkText p-6 rounded-xl shadow-brutal space-y-4">
-                        <h3 class="font-heading text-xl font-bold border-b-2 border-darkText pb-2 flex items-center justify-between">
-                            <span>Kirim Pesan</span>
-                            <i class="fa-solid fa-paper-plane text-rusticRed"></i>
-                        </h3>
-
-                        <div>
-                            <label class="block font-heading text-xs font-bold uppercase mb-1">Nama Lengkap</label>
-                            <input type="text" required placeholder="John Doe" class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm">
-                        </div>
-
-                        <div>
-                            <label class="block font-heading text-xs font-bold uppercase mb-1">Alamat Email</label>
-                            <input type="email" required placeholder="nama@domain.com" class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm">
-                        </div>
-
-                        <div>
-                            <label class="block font-heading text-xs font-bold uppercase mb-1">Pesan / Proyek</label>
-                            <textarea rows="3" required placeholder="Tuliskan ide proyekmu di sini..." class="w-full px-3 py-2 bg-white border-2 border-darkText rounded focus:bg-warmYellow/30 focus:outline-none font-medium text-sm"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full py-3 bg-forest text-warmYellow border-2 border-darkText rounded font-heading font-bold hover:bg-rusticRed hover:text-white transition-all shadow-brutal-sm active:translate-y-0.5 active:shadow-none">
-                            Kirimkan Sekarang
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER CREDITS -->
-    <footer class="bg-paperBg border-t-2 border-darkText py-6 mt-16 text-center font-heading text-xs text-darkText font-bold">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <span class="w-3 h-3 bg-forest rounded-full inline-block border border-darkText"></span>
-                <span>© 2026 RETRO FOREST PORTFOLIO. DIBUAT DENGAN PASION & HARMONI ALAM.</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="#about" class="hover:underline text-rusticRed">Kembali ke Atas ↑</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- RETRO OS MODAL DIALOG (PROJECT PREVIEW / SYSTEM INFO) -->
-    <div id="retroModal" class="fixed inset-0 bg-darkText/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-windowGray border-2 border-darkText w-full max-w-lg rounded-t-lg shadow-brutal-lg overflow-hidden animate-in fade-in zoom-in duration-200">
-            <!-- Modal Window Titlebar -->
-            <div class="bg-rusticRed text-warmYellow px-3 py-1.5 border-b-2 border-darkText flex items-center justify-between select-none">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-folder-open text-xs"></i>
-                    <span id="modalTitle" class="font-pixel text-lg font-bold">SYSTEM_PREVIEW.EXE</span>
-                </div>
-                <button onclick="closeModal()" class="w-5 h-5 bg-warmYellow text-darkText border border-darkText font-bold text-xs flex items-center justify-center hover:bg-white">×</button>
-            </div>
-
-            <!-- Modal Content Body -->
-            <div class="p-6 bg-paperBg space-y-4">
-                <div id="modalBody" class="text-sm font-medium text-darkText leading-relaxed space-y-2">
-                    <!-- Dynamic details inserted here -->
-                </div>
-
-                <div class="pt-4 border-t-2 border-darkText flex justify-end">
-                    <button onclick="closeModal()" class="px-5 py-1.5 bg-forest text-warmYellow border-2 border-darkText font-heading font-bold text-xs rounded hover:bg-rusticRed hover:text-white transition-colors shadow-brutal-sm">
-                        Tutup Jendela [OK]
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        /* =========================================================
-           1. MARKDOWN DOCUMENTS DATA & RENDER ENGINE
-           ========================================================= */
-        const markdownDocs = {
-            'readme': `
-# 🌲 Portofolio Retro Forest Notebook OS
-
-Selamat datang di repositori portofolio ini! Situs ini dirancang khusus dengan menggabungkan **3 elemen estetika utama**:
-
-1. **Retro Windows OS**: Elemen title bar, control window, tombol aksi brutalist.
-2. **Notebook / Neo-Brutalism**: Grid kertas koran, pita (*washi tape*), batas garis tebal (\`2px border\`), dan bayangan keras (\`shadow-brutal\`).
-3. **Nuansa Sejuk Hutan**: Kombinasi warna Hijau Hutan (\`#486C2F\`), Merah Karat (\`#8B2626\`), Kuning Hangat (\`#F1E5A1\`), dan Oranye Terakota (\`#EF6905\`).
-
-### ⚡ Fitur Utama:
-- **100% Statis & Responsif**: Ringan dan cepat diakses melalui Mobile maupun Desktop.
-- **Dukungan Build React Statis**: Komponen React yang dispesifikasi dapat dikompilasi menjadi JavaScript murni untuk hosting gratis di GitHub Pages.
-- **Audio Sintesis Alami**: Generator suara angin & hujan tipis menggunakan Web Audio API murni.
-            `,
-            'react-static': `
-# 📦 Panduan React Static Build untuk GitHub Pages
-
-Guna memastikan GitHub Pages dapat menerjemahkan aplikasi React milikmu, proyek harus **di-build menjadi JavaScript & HTML statis**.
-
-### Langkah-Langkah Build:
-1. Pastikan skrip build di \`package.json\` terkonfigurasi:
-\`\`\`json
-"scripts": {
-  "build": "vite build" // atau "react-scripts build"
-}
-\`\`\`
-2. Jalankan perintah kompilasi:
-\`\`\`bash
-npm run build
-\`\`\`
-3. Folder hasil kompilasi (misal: \`dist/\` atau \`build/\`) inilah yang dipublish ke cabang \`gh-pages\`.
-            `,
-            'forest-philosophy': `
-# 🍃 Filosofi Warna & Estetika Hutan
-
-Kode warna yang dipilih dalam portofolio ini memiliki arti mendalam:
-
-- **#486C2F (Forest Green)**: Melambangkan ketenangan, struktur kode yang sehat, dan daya tahan.
-- **#8B2626 (Rustic Red)**: Menandakan aksen tegas, fokus, dan energi kreatif brutalism.
-- **#F1E5A1 (Warm Sunlight Yellow)**: Kontras lembut bagaikan sinar matahari yang menembus dedaunan hutan.
-- **#EF6905 (Terracotta Orange)**: Kehangatan tanah dan semangat inovasi.
-            `
-        };
-
-        function loadMarkdownDoc(docKey) {
-            const content = markdownDocs[docKey] || '# Dokumentasi tidak ditemukan';
-            document.getElementById('markdownOutput').innerHTML = marked.parse(content);
-
-            // Update button styles
-            ['readme', 'react-static', 'forest-philosophy'].forEach(key => {
-                const btn = document.getElementById(`btn-${key}`);
-                if(key === docKey) {
-                    btn.className = "px-3 py-1 bg-forest text-warmYellow border-2 border-darkText rounded-md font-heading text-xs font-bold shadow-brutal-sm";
-                } else {
-                    btn.className = "px-3 py-1 bg-paperBg text-darkText border-2 border-darkText rounded-md font-heading text-xs font-bold hover:bg-warmYellow";
-                }
-            });
+      function handleFallback() {
+        const tempInput = document.createElement('input');
+        tempInput.value = email;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          handleSuccess();
+        } catch (err) {
+          if (copyLabel) copyLabel.textContent = 'b.callista.v@gmail.com';
         }
+        document.body.removeChild(tempInput);
+      }
 
-        /* =========================================================
-           2. RETRO MODAL CONTROLLER
-           ========================================================= */
-        function showProjectDetails(title, description, tech) {
-            document.getElementById('modalTitle').innerText = title.toUpperCase() + '.EXE';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="bg-warmYellow/40 p-3 border border-darkText rounded mb-3">
-                    <span class="font-bold text-rusticRed font-heading text-xs uppercase block">DESKRIPSI PROYEK:</span>
-                    <p class="text-sm mt-1">${description}</p>
-                </div>
-                <div>
-                    <span class="font-bold text-forest font-heading text-xs uppercase block">TEKNOLOGI DIGUNAKAN:</span>
-                    <p class="text-xs font-pixel text-base font-bold text-darkText mt-1">${tech}</p>
-                </div>
-            `;
-            document.getElementById('retroModal').classList.remove('hidden');
-            document.getElementById('retroModal').classList.add('flex');
-        }
+      function resetCopyBtn() {
+        if (copyLabel) copyLabel.textContent = 'Copy Email';
+        if (copyIcon) copyIcon.textContent = 'content_copy';
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest/50 backdrop-blur-lg mt-space-xl shadow-[0_-1px_16px_rgba(52,75,59,0.03)]"><div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex flex-col items-center md:items-start gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface">Bintang Callista Virjianto</span><p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 Bintang Callista Virjianto — Crafted with intention.</p></div><div class="flex items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" data-path="projects" href="#">Selected Works</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" data-path="experience" href="#">Trajectory</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" data-path="contact" href="#">Communication</a></div><div class="flex items-center gap-space-md"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Tokyo / Remote</span></div></div></footer>
 
-        function openSystemModal() {
-            document.getElementById('modalTitle').innerText = 'SYSTEM_DIAGNOSTICS.LOG';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="space-y-2 font-heading text-xs">
-                    <div class="flex justify-between border-b border-darkText/20 pb-1">
-                        <span>STATUS OPERASIONAL:</span>
-                        <span class="font-bold text-forest">NORMAL (100%)</span>
-                    </div>
-                    <div class="flex justify-between border-b border-darkText/20 pb-1">
-                        <span>TEKNOLOGI DUKUNGAN:</span>
-                        <span class="font-bold">HTML5, CSS3, JS ES6, REACT (STATIC)</span>
-                    </div>
-                    <div class="flex justify-between border-b border-darkText/20 pb-1">
-                        <span>PENGATURAN WARNA:</span>
-                        <span class="font-bold text-rusticRed">#486C2F & #8B2626</span>
-                    </div>
-                    <p class="pt-2 text-darkText/80">
-                        Website portofolio ini siap di-host langsung di GitHub Pages secara gratis tanpa membutuhkan server backend tambahan.
-                    </p>
-                </div>
-            `;
-            document.getElementById('retroModal').classList.remove('hidden');
-            document.getElementById('retroModal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('retroModal').classList.add('hidden');
-            document.getElementById('retroModal').classList.remove('flex');
-        }
-
-        /* =========================================================
-           3. WEB AUDIO SYNTHESIZER FOR AMBIENT FOREST SOUNDS
-           ========================================================= */
-        let audioCtx = null;
-        let isAudioPlaying = false;
-        let noiseNode = null;
-        let filterNode = null;
-
-        function toggleForestAudio() {
-            const icon = document.getElementById('audioIcon');
-            const text = document.getElementById('audioText');
-
-            if (!isAudioPlaying) {
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    
-                    // Create ambient pink noise (soft wind in forest)
-                    const bufferSize = audioCtx.sampleRate * 2;
-                    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-                    const output = noiseBuffer.getChannelData(0);
-                    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-
-                    for (let i = 0; i < bufferSize; i++) {
-                        const white = Math.random() * 2 - 1;
-                        b0 = 0.99886 * b0 + white * 0.0555179;
-                        b1 = 0.99332 * b1 + white * 0.0750759;
-                        b2 = 0.96900 * b2 + white * 0.1538520;
-                        b3 = 0.86650 * b3 + white * 0.3104856;
-                        b4 = 0.55000 * b4 + white * 0.5329522;
-                        b5 = -0.7616 * b5 - white * 0.0168980;
-                        output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-                        output[i] *= 0.03; // Low volume
-                        b6 = white * 0.115926;
-                    }
-
-                    noiseNode = audioCtx.createBufferSource();
-                    noiseNode.buffer = noiseBuffer;
-                    noiseNode.loop = true;
-
-                    // Lowpass filter for smooth leaf rustle sound
-                    filterNode = audioCtx.createBiquadFilter();
-                    filterNode.type = 'lowpass';
-                    filterNode.frequency.setValueAtTime(400, audioCtx.currentTime);
-
-                    noiseNode.connect(filterNode);
-                    filterNode.connect(audioCtx.destination);
-                    noiseNode.start();
-
-                    isAudioPlaying = true;
-                    icon.className = "fa-solid fa-volume-high text-forest";
-                    text.innerText = "Suara Aktif";
-                } catch (e) {
-                    console.log("Audio not supported or blocked by browser", e);
-                }
-            } else {
-                if (noiseNode) {
-                    noiseNode.stop();
-                    noiseNode.disconnect();
-                }
-                if (audioCtx) {
-                    audioCtx.close();
-                }
-                isAudioPlaying = false;
-                icon.className = "fa-solid fa-volume-xmark text-rusticRed";
-                text.innerText = "Suara Hutan";
-            }
-        }
-
-        /* =========================================================
-           4. MOBILE MENU & UTILS
-           ========================================================= */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert('Pesan berhasil dikirim! Terima kasih telah menghubungi.');
-            e.target.reset();
-        }
-
-        // Initialize default Markdown document on load
-        window.onload = function() {
-            loadMarkdownDoc('readme');
-        }
-    </script>
-</body>
-</html>
+</body></html>
