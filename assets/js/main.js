@@ -7,6 +7,49 @@
     'nav a[data-path], header a[data-path], footer a[data-path]'
   );
 
+  // Use the saved profile photo in both the brand mark and hero profile card.
+  const profilePhoto = "images/foto.png";
+  const brandLink = document.querySelector('header a[data-path="home"]');
+  const brandMark = brandLink && brandLink.querySelector("span.w-9.h-9");
+  if (brandMark) {
+    const image = document.createElement("img");
+    image.src = profilePhoto;
+    image.alt = "Bintang Callista Virjianto";
+    image.className = "w-full h-full rounded-full object-cover";
+    brandMark.textContent = "";
+    brandMark.appendChild(image);
+    brandMark.setAttribute("aria-label", "Bintang Callista Virjianto");
+  }
+
+  // Remove the Atelier subtitle from the header brand.
+  const brandText = brandLink && brandLink.querySelector("div.flex.flex-col");
+  if (brandText) {
+    const atelierLabel = Array.from(brandText.children).find(function (element) {
+      return element.textContent.trim() === "Atelier Virjianto";
+    });
+    if (atelierLabel) atelierLabel.remove();
+  }
+
+  // Replace the placeholder account icon in the hero profile card with the photo.
+  const heroCard = document.querySelector("#home .max-w-md");
+  const profileIcon = heroCard && Array.from(
+    heroCard.querySelectorAll(".material-symbols-outlined")
+  ).find(function (icon) {
+    return icon.textContent.trim() === "account_circle";
+  });
+  if (profileIcon) {
+    const photoFrame = profileIcon.parentElement;
+    const image = document.createElement("img");
+    image.src = profilePhoto;
+    image.alt = "Foto profil Bintang Callista Virjianto";
+    image.className = "w-20 h-20 rounded-full object-cover ring-4 ring-white/80 shadow-md";
+    if (photoFrame) {
+      photoFrame.replaceWith(image);
+    } else {
+      profileIcon.replaceWith(image);
+    }
+  }
+
   // Smoothly open and close the mobile navigation.
   function closeMenu() {
     if (!menu || !menuButton) return;
