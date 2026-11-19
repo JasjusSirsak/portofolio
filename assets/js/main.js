@@ -30,23 +30,58 @@
     if (atelierLabel) atelierLabel.remove();
   }
 
-  // Replace the placeholder account icon in the hero profile card with the photo.
+  // Replace the placeholder account icon with a centered, consistently sized photo.
   const heroCard = document.querySelector("#home .max-w-md");
   const profileIcon = heroCard && Array.from(
     heroCard.querySelectorAll(".material-symbols-outlined")
   ).find(function (icon) {
     return icon.textContent.trim() === "account_circle";
   });
+
   if (profileIcon) {
     const photoFrame = profileIcon.parentElement;
     const image = document.createElement("img");
     image.src = profilePhoto;
     image.alt = "Foto profil Bintang Callista Virjianto";
-    image.className = "w-20 h-20 rounded-full object-cover ring-4 ring-white/80 shadow-md";
+    image.className = "block w-20 h-20 mx-auto rounded-full object-cover ring-4 ring-white/80 shadow-md";
     if (photoFrame) {
       photoFrame.replaceWith(image);
     } else {
       profileIcon.replaceWith(image);
+    }
+  }
+
+  // Tighten the hero card layout so the photo, name and summary rows feel grouped.
+  const heroProfileContent = heroCard && heroCard.querySelector(".relative.z-10.my-auto");
+  if (heroProfileContent) {
+    heroProfileContent.style.display = "flex";
+    heroProfileContent.style.flexDirection = "column";
+    heroProfileContent.style.alignItems = "center";
+    heroProfileContent.style.gap = "0.75rem";
+    heroProfileContent.style.marginTop = "auto";
+    heroProfileContent.style.marginBottom = "auto";
+
+    const profileIdentity = heroProfileContent.children[1];
+    if (profileIdentity) profileIdentity.style.margin = "0";
+
+    const summaryList = heroProfileContent.children[2];
+    if (summaryList) {
+      summaryList.style.width = "100%";
+      summaryList.style.display = "grid";
+      summaryList.style.gap = "0.5rem";
+      summaryList.style.paddingTop = "0.25rem";
+      Array.from(summaryList.children).forEach(function (row) {
+        row.style.margin = "0";
+      });
+    }
+  }
+
+  // Correct all displayed occurrences of the GPA value.
+  const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let textNode;
+  while ((textNode = textWalker.nextNode())) {
+    if (textNode.nodeValue.trim() === "88") {
+      textNode.nodeValue = textNode.nodeValue.replace("88", "85,66");
     }
   }
 
