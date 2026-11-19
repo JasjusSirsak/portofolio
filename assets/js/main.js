@@ -6,10 +6,10 @@
   const navLinks = document.querySelectorAll(
     'nav a[data-path], header a[data-path], footer a[data-path]'
   );
-
-  // Use the saved profile photo in both the brand mark and hero profile card.
   const profilePhoto = "images/foto.png";
   const brandLink = document.querySelector('header a[data-path="home"]');
+
+  // Use the saved profile photo in the header brand mark.
   const brandMark = brandLink && brandLink.querySelector("span.w-9.h-9");
   if (brandMark) {
     const image = document.createElement("img");
@@ -24,68 +24,87 @@
   // Remove the Atelier subtitle from the header brand.
   const brandText = brandLink && brandLink.querySelector("div.flex.flex-col");
   if (brandText) {
-    const atelierLabel = Array.from(brandText.children).find(function (element) {
-      return element.textContent.trim() === "Atelier Virjianto";
+    Array.from(brandText.children).forEach(function (element) {
+      if (element.textContent.trim() === "Atelier Virjianto") element.remove();
     });
-    if (atelierLabel) atelierLabel.remove();
   }
 
-  // Replace the placeholder account icon with a centered, consistently sized photo.
   const heroCard = document.querySelector("#home .max-w-md");
-  const profileIcon = heroCard && Array.from(
-    heroCard.querySelectorAll(".material-symbols-outlined")
-  ).find(function (icon) {
-    return icon.textContent.trim() === "account_circle";
-  });
+  if (heroCard) {
+    // Replace the placeholder icon with a centered profile photo.
+    const profileIcon = Array.from(
+      heroCard.querySelectorAll(".material-symbols-outlined")
+    ).find(function (icon) {
+      return icon.textContent.trim() === "account_circle";
+    });
 
-  if (profileIcon) {
-    const photoFrame = profileIcon.parentElement;
-    const image = document.createElement("img");
-    image.src = profilePhoto;
-    image.alt = "Foto profil Bintang Callista Virjianto";
-    image.className = "block w-20 h-20 mx-auto rounded-full object-cover ring-4 ring-white/80 shadow-md";
-    if (photoFrame) {
-      photoFrame.replaceWith(image);
-    } else {
-      profileIcon.replaceWith(image);
+    if (profileIcon) {
+      const image = document.createElement("img");
+      image.src = profilePhoto;
+      image.alt = "Foto profil Bintang Callista Virjianto";
+      image.className = "block w-20 h-20 mx-auto rounded-full object-cover ring-4 ring-white/80 shadow-md";
+      const photoFrame = profileIcon.parentElement;
+      if (photoFrame) photoFrame.replaceWith(image);
+      else profileIcon.replaceWith(image);
     }
+
+    // Let the card fit its contents instead of pushing the location row far down.
+    heroCard.style.aspectRatio = "auto";
+    heroCard.style.minHeight = "0";
+    heroCard.style.justifyContent = "flex-start";
+    heroCard.style.gap = "1rem";
+
+    const cardHeader = heroCard.firstElementChild;
+    const profileContent = heroCard.querySelector(".relative.z-10.my-auto");
+    const availabilityRow = heroCard.lastElementChild;
+
+    if (cardHeader) cardHeader.style.paddingBottom = "0";
+    if (profileContent) {
+      profileContent.style.display = "flex";
+      profileContent.style.flexDirection = "column";
+      profileContent.style.alignItems = "center";
+      profileContent.style.gap = "0.75rem";
+      profileContent.style.margin = "0";
+
+      const profileIdentity = profileContent.children[1];
+      if (profileIdentity) profileIdentity.style.margin = "0";
+
+      const summaryList = profileContent.children[2];
+      if (summaryList) {
+        summaryList.style.width = "100%";
+        summaryList.style.display = "grid";
+        summaryList.style.gap = "0.5rem";
+        summaryList.style.paddingTop = "0";
+        Array.from(summaryList.children).forEach(function (row) {
+          row.style.margin = "0";
+        });
+      }
+    }
+
+    if (availabilityRow) availabilityRow.style.paddingTop = "0";
+
+    // Correct the GPA in the school summary row (its text node includes the full label).
+    const schoolSummary = Array.from(heroCard.querySelectorAll("div")).find(function (element) {
+      return element.children.length === 2 &&
+        element.textContent.includes("SMK ICB Cinta Niaga");
+    });
+    if (schoolSummary && schoolSummary.lastElementChild) {
+      schoolSummary.lastElementChild.textContent = "85,66 / 100 GPA";
+    }
+
+    // Keep availability concise; the year is not needed in this status label.
+    const availabilityLabel = Array.from(heroCard.querySelectorAll("span")).find(function (element) {
+      return element.textContent.trim() === "Available 2026";
+    });
+    if (availabilityLabel) availabilityLabel.textContent = "Available";
   }
 
-  // Tighten the hero card layout so the photo, name and summary rows feel grouped.
-  const heroProfileContent = heroCard && heroCard.querySelector(".relative.z-10.my-auto");
-  if (heroProfileContent) {
-    heroProfileContent.style.display = "flex";
-    heroProfileContent.style.flexDirection = "column";
-    heroProfileContent.style.alignItems = "center";
-    heroProfileContent.style.gap = "0.75rem";
-    heroProfileContent.style.marginTop = "auto";
-    heroProfileContent.style.marginBottom = "auto";
-
-    const profileIdentity = heroProfileContent.children[1];
-    if (profileIdentity) profileIdentity.style.margin = "0";
-
-    const summaryList = heroProfileContent.children[2];
-    if (summaryList) {
-      summaryList.style.width = "100%";
-      summaryList.style.display = "grid";
-      summaryList.style.gap = "0.5rem";
-      summaryList.style.paddingTop = "0.25rem";
-      Array.from(summaryList.children).forEach(function (row) {
-        row.style.margin = "0";
-      });
-    }
+  // Correct the headline GPA metric as well.
+  const gpaMetric = document.querySelector("#home .grid.grid-cols-3 > div:first-child > span:first-child");
+  if (gpaMetric && gpaMetric.firstChild) {
+    gpaMetric.firstChild.nodeValue = "85,66";
   }
 
-  // Correct all displayed occurrences of the GPA value.
-  const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-  let textNode;
-  while ((textNode = textWalker.nextNode())) {
-    if (textNode.nodeValue.trim() === "88") {
-      textNode.nodeValue = textNode.nodeValue.replace("88", "85,66");
-    }
-  }
-
-  // Smoothly open and close the mobile navigation.
   function closeMenu() {
     if (!menu || !menuButton) return;
     menu.classList.remove("is-open");
